@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         firago: `"FiraGO", sans-serif`,
       },
+      colors: {
+        lightGray: "#DBDBDB",
+      },
     },
   },
   plugins: [],
