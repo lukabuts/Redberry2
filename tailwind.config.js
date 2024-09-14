@@ -8,6 +8,10 @@ export default {
       },
       colors: {
         lightGray: "#DBDBDB",
+        deepBlue: "#021526",
+      },
+      gridTemplateColumns: {
+        autoFillEstateCard: "repeat(auto-fill, 384px)",
       },
     },
   },

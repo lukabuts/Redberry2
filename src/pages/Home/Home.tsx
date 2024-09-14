@@ -1,9 +1,12 @@
 import { Outlet } from "react-router";
+import RealEstateCard from "../../components/RealEstateCard/RealEstate";
 
 const Home = () => {
   return (
     <div>
-      Home
+      <div className="grid grid-cols-autoFillEstateCard justify-around gap-5">
+        <RealEstateCard />
+      </div>
       <Outlet />
     </div>
   );
