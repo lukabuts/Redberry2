@@ -9,6 +9,9 @@ export default {
       colors: {
         lightGray: "#DBDBDB",
         deepBlue: "#021526",
+        flameRed: "#F93B1D",
+        hoveredFlameRed: "#DF3014",
+        softGray: "#F3F3F3",
       },
       gridTemplateColumns: {
         autoFillEstateCard: "repeat(auto-fill, 384px)",
