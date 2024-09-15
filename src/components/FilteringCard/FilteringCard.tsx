@@ -1,21 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import dropDownImg from "../../assets/images/dropdown.svg";
-import { TokenContext } from "../../App";
-import axios from "axios";
-import regionsType from "../../assets/typescript/types/regions";
 import RegionsCard from "../filteringCards/RegionsCard";
+import { Link } from "react-router-dom";
 
 const FilteringCard = () => {
   const [shownFilterPopUP, setShownFilterPopUP] = useState<
     "region" | "price" | "area" | "bedrooms" | ""
   >("");
-  const [isRegionsInfoLoading, setIsRegionsInfoLoading] = useState(false);
-  const [regions, setRegions] = useState<regionsType[]>([]);
+
   const [selectedRegions, setSelectedRegions] = useState<number[]>(() => {
     const localStorageRegions = localStorage.getItem("selectedRegions");
     return localStorageRegions ? JSON.parse(localStorageRegions) : [];
   });
-  const token = useContext(TokenContext);
 
   function showRegionFilter() {
     if (shownFilterPopUP !== "region") {
@@ -23,32 +19,6 @@ const FilteringCard = () => {
     } else {
       setShownFilterPopUP("");
     }
-    if (regions.length > 0) return;
-    showRegions();
-  }
-
-  function showRegions() {
-    setIsRegionsInfoLoading(true);
-    axios
-      .get(
-        "https://api.real-estate-manager.redberryinternship.ge/api/regions",
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setRegions(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsRegionsInfoLoading(false);
-      });
   }
 
   useEffect(() => {
@@ -60,9 +30,7 @@ const FilteringCard = () => {
         <div className="flex gap-10 p-1.5 mb-5 border border-lightGray rounded-lg w-fit">
           <RegionsCard
             showRegionFilter={showRegionFilter}
-            isRegionsInfoLoading={isRegionsInfoLoading}
             shownFilterPopUP={shownFilterPopUP}
-            regions={regions}
             setSelectedRegions={setSelectedRegions}
             selectedRegions={selectedRegions}
           />
@@ -88,7 +56,7 @@ const FilteringCard = () => {
       </div>
       <div className="flex space-x-4">
         <button className="text-white bg-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-hoveredFlameRed transition-colors">
-          + ლისტინგის დამატება
+          <Link to="/add-listing/">+ ლისტინგის დამატება</Link>
         </button>
         <button className="text-flameRed border border-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-flameRed hover:text-white transition-colors">
           + აგენტის დამატება
