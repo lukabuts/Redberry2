@@ -55,9 +55,12 @@ const FilteringCard = () => {
         </div>
       </div>
       <div className="flex space-x-4">
-        <button className="text-white bg-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-hoveredFlameRed transition-colors">
-          <Link to="/add-listing/">+ ლისტინგის დამატება</Link>
-        </button>
+        <Link
+          to="/add-listing"
+          className="text-white bg-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-hoveredFlameRed transition-colors"
+        >
+          + ლისტინგის დამატება
+        </Link>
         <button className="text-flameRed border border-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-flameRed hover:text-white transition-colors">
           + აგენტის დამატება
         </button>

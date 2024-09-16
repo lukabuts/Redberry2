@@ -14,6 +14,8 @@ export default {
         softGray: "#F3F3F3",
         charcoalBlack: "#1A1A1F",
         slateGray: "#808A93",
+        errColor: "#F93B1D",
+        successColor: "#45A849",
       },
       gridTemplateColumns: {
         autoFillEstateCard: "repeat(auto-fill, 384px)",

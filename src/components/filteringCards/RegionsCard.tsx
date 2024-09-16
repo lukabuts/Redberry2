@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import dropDownIcon from "../../assets/images/dropdown.svg";
-import RegionsCardProps from "../../assets/typescript/interfaces/regionsCardInterface";
+import RegionsCardInterface from "../../assets/typescript/interfaces/regionsCardInterface";
 import { IsRegionsInfoLoadingContext, RegionsContext } from "../../App";
 
 const RegionsCard = ({
@@ -8,7 +8,7 @@ const RegionsCard = ({
   shownFilterPopUP,
   setSelectedRegions,
   selectedRegions,
-}: RegionsCardProps) => {
+}: RegionsCardInterface) => {
   const regions = useContext(RegionsContext);
   const isRegionsInfoLoading = useContext(IsRegionsInfoLoadingContext);
   function handleChange(e: React.ChangeEvent<HTMLInputElement>, id: number) {
