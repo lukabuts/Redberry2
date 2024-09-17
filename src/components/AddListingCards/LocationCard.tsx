@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RegionsContext, TokenContext } from "../../App";
 import LocationCardInterface from "../../assets/typescript/interfaces/locationCardInterface";
 import axios from "axios";
