@@ -5,10 +5,10 @@ export default interface LocationCardInterface {
   setSelectedCity: React.Dispatch<React.SetStateAction<number>>;
   address: string;
   setAddress: React.Dispatch<React.SetStateAction<string>>;
-  postIndex: number | undefined;
-  setPostIndex: React.Dispatch<React.SetStateAction<number | undefined>>;
+  zipCode: string;
+  setZipCode: React.Dispatch<React.SetStateAction<string>>;
   invalidAddress: boolean;
   setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
-  invalidPostIndex: boolean;
-  setInvalidPostIndex: React.Dispatch<React.SetStateAction<boolean>>;
+  invalidZipCode: boolean;
+  setInvalidZipCode: React.Dispatch<React.SetStateAction<boolean>>;
 }

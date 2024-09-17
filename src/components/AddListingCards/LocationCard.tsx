@@ -12,12 +12,12 @@ const LocationCard = ({
   setSelectedCity,
   address,
   setAddress,
-  postIndex,
-  setPostIndex,
+  zipCode,
+  setZipCode,
   setInvalidAddress,
   invalidAddress,
-  invalidPostIndex,
-  setInvalidPostIndex,
+  invalidZipCode,
+  setInvalidZipCode,
 }: LocationCardInterface) => {
   const regions = useContext(RegionsContext);
   const token = useContext(TokenContext);
@@ -41,34 +41,31 @@ const LocationCard = ({
       });
   }, [token]);
 
-  // handleAddressChange
-  function handleAddressChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const inputValue = e.target.value;
-    setAddress(inputValue);
-    if (inputValue.trim().length < 2 && inputValue.trim().length > 0) {
+  // Validate Address
+  useEffect(() => {
+    validateAddress();
+  }, [address]);
+  function validateAddress() {
+    if (address.trim().length < 2 && address.trim().length > 0) {
       setInvalidAddress(true);
     } else {
       setInvalidAddress(false);
     }
   }
 
-  // handlePostIndexChange
-  function handlePostIndexChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const inputValue = e.target.value;
+  // Handle Invalid Zipcode
+  useEffect(() => {
+    handleInvalidZipCode();
+  }, [zipCode]);
 
-    if (inputValue === "") {
-      setPostIndex(undefined);
-      setInvalidPostIndex(false);
-      return;
-    }
-
-    const numericValue = Number(inputValue);
+  // Validate ZIpcode
+  function handleInvalidZipCode() {
+    const numericValue = Number(zipCode);
 
     if (isNaN(numericValue) || numericValue < 0) {
-      setInvalidPostIndex(true);
+      setInvalidZipCode(true);
     } else {
-      setInvalidPostIndex(false);
-      setPostIndex(numericValue);
+      setInvalidZipCode(false);
     }
   }
 
@@ -92,13 +89,13 @@ const LocationCard = ({
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
                   invalidAddress
                     ? "border-errColor"
-                    : address
+                    : address.trim()
                     ? "border-successColor"
                     : "border-slateGray"
                 }`}
                 id="address"
                 onChange={(e) => {
-                  handleAddressChange(e);
+                  setAddress(e.target.value);
                 }}
                 value={address}
               />
@@ -106,36 +103,37 @@ const LocationCard = ({
             <ValidationCard
               isError={invalidAddress}
               validationMsg="მინიმუმ ორი სიმბოლო"
-              valueEntered={address}
+              valueEntered={address.trim()}
             />
           </div>
-          {/* Post Index */}
+          {/* Zip Code */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <label htmlFor="post-index" className="text-sm font-semibold">
+              <label htmlFor="zipCode" className="text-sm font-semibold">
                 საფოსტო ინდექსი *
               </label>
               <input
                 required
+                min={0}
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                  invalidPostIndex
+                  invalidZipCode
                     ? "border-errColor"
-                    : postIndex
+                    : zipCode.trim()
                     ? "border-successColor"
                     : "border-slateGray"
                 }`}
-                id="post-index"
+                id="zipCode"
                 onChange={(e) => {
-                  handlePostIndexChange(e);
+                  setZipCode(e.target.value);
                 }}
-                value={postIndex !== undefined ? String(postIndex) : ""}
+                value={zipCode}
               />
             </div>
             <ValidationCard
-              isError={invalidPostIndex}
+              isError={invalidZipCode}
               validationMsg="მხოლოდ რიცხვები"
-              valueEntered={postIndex}
+              valueEntered={zipCode.trim()}
             />
           </div>
         </div>

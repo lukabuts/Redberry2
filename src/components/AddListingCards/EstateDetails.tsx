@@ -2,7 +2,7 @@ import ValidationCard from "./ValidationCard";
 import circlePlusIcon from "../../assets/images/plus_circle.svg";
 import trashIcon from "../../assets/images/trash.svg";
 import EstateDetailsInterface from "../../assets/typescript/interfaces/estateDetailsInterface";
-import { useState } from "react";
+import { useEffect } from "react";
 
 const EstateDetails = ({
   price,
@@ -25,44 +25,44 @@ const EstateDetails = ({
   setImageError,
   imageError,
   image,
+  imagePreviewUrl,
+  setImagePreviewUrl,
 }: EstateDetailsInterface) => {
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>("");
-  // Handle Numeric values Change
-  function handleNumericValueChange(
-    e: React.ChangeEvent<HTMLInputElement>,
-    setValue: React.Dispatch<React.SetStateAction<number | undefined>>,
+  // Handle Description error
+  useEffect(() => {
+    if (description.length < 5 && description.trim().length > 0) {
+      setInvalidDescription(true);
+    } else {
+      setInvalidDescription(false);
+    }
+  }, [description]);
+
+  // Handle Invalid Price error
+  useEffect(() => {
+    validateNumericValue(price, setInvalidPrice);
+  }, [price]);
+
+  // Handle Invalid Area error
+  useEffect(() => {
+    validateNumericValue(area, setInvalidArea);
+    console.log(area);
+  }, [area]);
+
+  // Validate Numeric values
+  function validateNumericValue(
+    value: string,
     setInvalidValue: React.Dispatch<React.SetStateAction<boolean>>
   ) {
-    const inputValue = e.target.value;
-
-    if (inputValue === "") {
-      setValue(undefined);
-      setInvalidValue(false);
-      return;
-    }
-
-    const numericValue = Number(inputValue);
+    const numericValue = Number(value);
 
     if (isNaN(numericValue) || numericValue < 0) {
       setInvalidValue(true);
     } else {
       setInvalidValue(false);
-      setValue(numericValue);
     }
   }
 
-  // Handle Description Change
-  function handleDescriptionChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    const inputValue = e.target.value;
-    setDescription(inputValue);
-    if (inputValue.trim().length < 5 && inputValue.trim().length > 0) {
-      setInvalidDescription(true);
-    } else {
-      setInvalidDescription(false);
-    }
-  }
-
-  // Handle Image Change
+  // Handle Image change
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -74,21 +74,34 @@ const EstateDetails = ({
     }
 
     if (file.type.startsWith("image")) {
-      setImage(file);
-      setImageError(false);
-      const imageUrl = URL.createObjectURL(file);
-      setImagePreviewUrl(imageUrl);
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.addEventListener("load", () => {
+        const result = reader.result as string;
+        setImage(result);
+
+        const imageUrl = URL.createObjectURL(file);
+        setImagePreviewUrl(imageUrl);
+
+        setImageError(false);
+      });
+
+      reader.addEventListener("error", () => {
+        setImageError(true);
+        setImage("");
+        setImagePreviewUrl("");
+      });
     } else {
       setImageError(true);
-      setImage(null);
+      setImage("");
       setImagePreviewUrl("");
     }
   }
-
   function removeImage() {
-    console.log("TRYING");
-
-    setImage(null);
+    setImage("");
+    setImagePreviewUrl("");
     setImageError(false);
   }
   return (
@@ -108,25 +121,26 @@ const EstateDetails = ({
               </label>
               <input
                 required
+                min={0}
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
                   invalidPrice
                     ? "border-errColor"
-                    : price
+                    : price.trim()
                     ? "border-successColor"
                     : "border-slateGray"
                 }`}
                 id="price"
                 onChange={(e) => {
-                  handleNumericValueChange(e, setPrice, setInvalidPrice);
+                  setPrice(e.target.value);
                 }}
-                value={price !== undefined ? String(price) : ""}
+                value={price}
               />
             </div>
             <ValidationCard
               isError={invalidPrice}
-              valueEntered={price}
-              validationMsg="მხოლოდ რიცხვები"
+              valueEntered={price.trim()}
+              validationMsg="მხოლოდ დადებითი რიცხვები"
             />
           </div>
           {/* Area */}
@@ -136,26 +150,27 @@ const EstateDetails = ({
                 ფართობი *
               </label>
               <input
+                min={0}
                 required
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
                   invalidArea
                     ? "border-errColor"
-                    : area
+                    : area.trim()
                     ? "border-successColor"
                     : "border-slateGray"
                 }`}
                 id="area"
                 onChange={(e) => {
-                  handleNumericValueChange(e, setArea, setInvalidArea);
+                  setArea(e.target.value);
                 }}
-                value={area !== undefined ? String(area) : ""}
+                value={area}
               />
             </div>
             <ValidationCard
               isError={invalidArea}
-              validationMsg="მხოლოდ რიცხვები"
-              valueEntered={area}
+              validationMsg="მხოლოდ დადებითი რიცხვები"
+              valueEntered={area.trim()}
             />
           </div>
         </div>
@@ -166,29 +181,41 @@ const EstateDetails = ({
               საძინებლების რაოდენობა *
             </label>
             <input
+              min={0}
               required
               type="number"
               className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
                 invalidBedrooms
                   ? "border-errColor"
-                  : bedrooms
+                  : bedrooms.trim()
                   ? "border-successColor"
                   : "border-slateGray"
               }`}
               id="bedroomsCount"
               onChange={(e) => {
-                handleNumericValueChange(e, setBedrooms, setInvalidBedrooms);
-                if (!Number.isInteger(Number(e.target.value))) {
+                const value = e.target.value;
+                setBedrooms(value);
+                const numericValue = Number(value);
+                if (
+                  isNaN(numericValue) ||
+                  numericValue < 0 ||
+                  !Number.isInteger(numericValue)
+                ) {
                   setInvalidBedrooms(true);
+                } else {
+                  setInvalidBedrooms(false);
                 }
               }}
-              value={bedrooms !== undefined ? String(bedrooms) : ""}
+              onInput={() => {
+                console.log("hiii");
+              }}
+              value={bedrooms}
             />
           </div>
           <ValidationCard
             isError={invalidBedrooms}
-            validationMsg="მხოლოდ მთელი რიცხვები"
-            valueEntered={bedrooms}
+            validationMsg="მხოლოდ მთელი დადებითი რიცხვები"
+            valueEntered={bedrooms.trim()}
           />
         </div>
         {/* Description */}
@@ -201,19 +228,19 @@ const EstateDetails = ({
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none h-32 ${
               invalidDescription
                 ? "border-errColor"
-                : description
+                : description.trim()
                 ? "border-successColor"
                 : "border-slateGray"
             }`}
             onChange={(e) => {
-              handleDescriptionChange(e);
+              setDescription(e.target.value);
             }}
             value={description}
           ></textarea>
           <ValidationCard
             isError={invalidDescription}
             validationMsg="მინიმუმ ხუთი სიტყვა"
-            valueEntered={description}
+            valueEntered={description.trim()}
           />
         </div>
         {/* Upload Photo */}

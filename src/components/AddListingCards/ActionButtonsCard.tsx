@@ -6,13 +6,14 @@ const ActionButtonsCard = () => {
   // Handle Cancel Operation
   function handleCancelOperation() {
     navigate("/");
-    localStorage.removeItem("addListingInfo");
+    localStorage.removeItem("addListingDetails");
   }
 
   return (
     <>
       <button
         onClick={handleCancelOperation}
+        type="button"
         className="text-white bg-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-hoveredFlameRed transition-colors"
       >
         გაუქმება

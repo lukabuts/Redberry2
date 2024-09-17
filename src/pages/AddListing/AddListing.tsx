@@ -1,44 +1,115 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DealTypeCard from "../../components/AddListingCards/DealTypeCard";
 import LocationCard from "../../components/AddListingCards/LocationCard";
 import EstateDetails from "../../components/AddListingCards/EstateDetails";
 import SelectAgentCard from "../../components/AddListingCards/SelectAgentCard";
 import ActionButtonsCard from "../../components/AddListingCards/ActionButtonsCard";
+import { realEstateType } from "../../assets/typescript/types/realEstateType";
 
 const AddListing = () => {
+  // Saved inserted details
+  const detailsFromLocalStorage = localStorage.getItem("addListingDetails");
+  const savedInsertedDetails: realEstateType =
+    detailsFromLocalStorage && detailsFromLocalStorage !== "undefined"
+      ? JSON.parse(detailsFromLocalStorage)
+      : null;
   // isRental
-  const [isRental, setIsRental] = useState(false);
+  const [isRental, setIsRental] = useState(
+    savedInsertedDetails?.is_rental || false
+  );
   // isForSale
-  const [isForSale, setIsForSale] = useState(false);
+  const [isForSale, setIsForSale] = useState(
+    savedInsertedDetails?.is_for_sale || false
+  );
   // Address
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(savedInsertedDetails?.address || "");
   const [invalidAddress, setInvalidAddress] = useState(false);
-  // Post Index
-  const [postIndex, setPostIndex] = useState<number | undefined>(undefined);
-  const [invalidPostIndex, setInvalidPostIndex] = useState<boolean>(false);
+  // Zip Code
+  const [zipCode, setZipCode] = useState<string>(
+    savedInsertedDetails?.zip_code || ""
+  );
+  const [invalidZipCode, setInvalidZipCode] = useState<boolean>(false);
   // Selected City
-  const [selectedRegion, setSelectedRegion] = useState<number>(0);
+  const [selectedRegion, setSelectedRegion] = useState<number>(
+    savedInsertedDetails?.region_id || 0
+  );
   // Selected Region
-  const [selectedCity, setSelectedCity] = useState<number>(0);
+  const [selectedCity, setSelectedCity] = useState<number>(
+    savedInsertedDetails?.city_id || 0
+  );
   // Price
-  const [price, setPrice] = useState<number | undefined>(undefined);
+  const [price, setPrice] = useState<string>(savedInsertedDetails?.price || "");
   const [invalidPrice, setInvalidPrice] = useState(false);
   // Area
-  const [area, setArea] = useState<number | undefined>(undefined);
+  const [area, setArea] = useState<string>(savedInsertedDetails?.area || "");
   const [invalidArea, setInvalidArea] = useState(false);
   // Bedrooms
-  const [bedrooms, setBedrooms] = useState<number | undefined>(undefined);
+  const [bedrooms, setBedrooms] = useState<string>(
+    savedInsertedDetails?.bedrooms || ""
+  );
   const [invalidBedrooms, setInvalidBedrooms] = useState(false);
   // Description
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(
+    savedInsertedDetails?.description || ""
+  );
   const [invalidDescription, setInvalidDescription] = useState(false);
   // Image
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<string>(savedInsertedDetails?.image || "");
   const [imageError, setImageError] = useState(false);
-  // SelectedAgent
-  const [selectedAgent, setSelectedAgent] = useState<number | undefined>(
-    undefined
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>(
+    savedInsertedDetails?.imagePreviewUrl || ""
   );
+  // SelectedAgent
+  const [selectedAgent, setSelectedAgent] = useState<number>(
+    savedInsertedDetails?.agent_id || 0
+  );
+
+  // Inserted Details
+  const [insertedEstateDetails, setInsertedEstateDetails] =
+    useState<realEstateType>();
+
+  // Setting inserted estate datails
+  useEffect(() => {
+    const details: realEstateType = {
+      address: address,
+      region_id: selectedRegion,
+      image: image,
+      city_id: selectedCity,
+      agent_id: selectedAgent,
+      is_rental: isRental,
+      description: description,
+      zip_code: zipCode,
+      price: price,
+      area: area,
+      bedrooms: bedrooms,
+      is_for_sale: isForSale,
+      imagePreviewUrl: imagePreviewUrl,
+    };
+
+    setInsertedEstateDetails(details);
+  }, [
+    address,
+    image,
+    selectedRegion,
+    selectedCity,
+    selectedAgent,
+    isRental,
+    description,
+    zipCode,
+    price,
+    area,
+    bedrooms,
+    isForSale,
+    imagePreviewUrl,
+  ]);
+
+  // Saving Details in localstorage
+  useEffect(() => {
+    localStorage.setItem(
+      "addListingDetails",
+      JSON.stringify(insertedEstateDetails)
+    );
+  }, [insertedEstateDetails]);
 
   return (
     <form className="py-14 max-w-4xl mx-auto w-full flex flex-col gap-20">
@@ -61,12 +132,12 @@ const AddListing = () => {
           setSelectedCity={setSelectedCity}
           address={address}
           setAddress={setAddress}
-          postIndex={postIndex}
-          setPostIndex={setPostIndex}
+          zipCode={zipCode}
+          setZipCode={setZipCode}
           setInvalidAddress={setInvalidAddress}
           invalidAddress={invalidAddress}
-          invalidPostIndex={invalidPostIndex}
-          setInvalidPostIndex={setInvalidPostIndex}
+          invalidZipCode={invalidZipCode}
+          setInvalidZipCode={setInvalidZipCode}
         />
       </div>
       <div>
@@ -91,6 +162,8 @@ const AddListing = () => {
           setImageError={setImageError}
           imageError={imageError}
           image={image}
+          imagePreviewUrl={imagePreviewUrl}
+          setImagePreviewUrl={setImagePreviewUrl}
         />
       </div>
       <div>

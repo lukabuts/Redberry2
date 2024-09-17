@@ -51,7 +51,7 @@ function App() {
                 <Route path="/" element={<Home />}>
                   <Route path="add-agent" element={<AddAgent />} />
                 </Route>
-                <Route path="/real-estate/:id" element={<Listing />} />
+                <Route path="/real-estates/:id" element={<Listing />} />
                 <Route path="/add-listing/" element={<AddListing />} />
               </Routes>
             </RegionsContext.Provider>
