@@ -1,14 +1,18 @@
 import { useNavigate } from "react-router";
 import MainTitleCard from "../../components/TitleCards/MainTitleCard";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AgentFullNameCard from "../../components/AddAgentCards/AgentFullNameCard";
 import ContactInfoCard from "../../components/AddAgentCards/ContactInfoCard";
 import UploadImageCard from "../../components/UploadImageCard/UploadImageCard";
 import { addAgentType } from "../../assets/typescript/types/addAgentType";
 import NotFilledButtonCard from "../../components/Buttons/NotFilledButtonCard";
 import FilledButtonCard from "../../components/Buttons/FilledButtonCard";
+import axios from "axios";
+import { TokenContext } from "../../App";
 
 const AddAgent = () => {
+  // token
+  const token = useContext(TokenContext);
   // Saved inserted details
   const detailsFromLocalStorage = localStorage.getItem("addAgentDetails");
   const savedAgentDetails: addAgentType =
@@ -85,6 +89,30 @@ const AddAgent = () => {
     localStorage.removeItem("addAgentDetails");
     setInsertedAgentDetails(undefined);
   }
+
+  // Creating New Agent
+  function createAgent() {
+    const formData = new FormData();
+    formData.append("name", agentName);
+    formData.append("surname", agentSurname);
+    formData.append("email", agentEmail);
+    formData.append("phone", agentMobileNumber);
+    formData.append("avatar", agentAvatar);
+
+    axios
+      .post("https://api.blog.redberryinternship.ge/api/agents", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log("Error uploading blog:", err);
+      });
+  }
   return (
     <div
       className="fixed top-0 left-0 w-full h-full z-50 flex items-center justify-center bg-deepBlue/35 backdrop-blur-sm"
@@ -94,6 +122,10 @@ const AddAgent = () => {
         className="flex gap-16 flex-col bg-white px-28 py-24 rounded-lg w-full max-w-5xl"
         onClick={(e) => {
           e.stopPropagation();
+        }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          createAgent();
         }}
       >
         <div>
@@ -142,6 +174,7 @@ const AddAgent = () => {
           <div onClick={exitAddAgentDialog}>
             <NotFilledButtonCard>გაუქმება</NotFilledButtonCard>
           </div>
+
           <FilledButtonCard>დაამატე აგენტი</FilledButtonCard>
         </div>
       </form>
