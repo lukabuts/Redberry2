@@ -1,4 +1,5 @@
 import DealTypeInterface from "../../assets/typescript/interfaces/dealInterface";
+import LabelCard from "../TitleCards/LabelCard";
 
 const DealTypeCard = ({
   isRental,
@@ -27,9 +28,7 @@ const DealTypeCard = ({
             id="sell"
             className="accent-black"
           />
-          <label htmlFor="sell" className="text-sm text-deepBlue">
-            იყიდება
-          </label>
+          <LabelCard HTMLfor="sell">იყიდება</LabelCard>
         </div>
         <div className="flex gap-1.5">
           <input
@@ -44,9 +43,7 @@ const DealTypeCard = ({
             className="accent-black"
             required
           />
-          <label htmlFor="rent" className="text-sm text-deepBlue">
-            ქირავდება
-          </label>
+          <LabelCard HTMLfor="rent">ქირავდება</LabelCard>
         </div>
       </div>
     </>

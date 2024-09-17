@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import dropDownImg from "../../assets/images/dropdown.svg";
 import RegionsCard from "../filteringCards/RegionsCard";
 import { Link } from "react-router-dom";
+import NotFilledButtonCard from "../Buttons/NotFilledButtonCard";
+import FilledButtonCard from "../Buttons/FilledButtonCard";
 
 const FilteringCard = () => {
   const [shownFilterPopUP, setShownFilterPopUP] = useState<
@@ -27,7 +29,7 @@ const FilteringCard = () => {
   return (
     <>
       <div>
-        <div className="flex gap-10 p-1.5 mb-5 border border-lightGray rounded-lg w-fit">
+        <div className="flex gap-10 p-1.5 border border-lightGray rounded-lg w-fit">
           <RegionsCard
             showRegionFilter={showRegionFilter}
             shownFilterPopUP={shownFilterPopUP}
@@ -55,15 +57,13 @@ const FilteringCard = () => {
         </div>
       </div>
       <div className="flex space-x-4">
-        <Link
-          to="/add-listing"
-          className="text-white bg-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-hoveredFlameRed transition-colors"
-        >
-          + ლისტინგის დამატება
+        <Link to="/add-listing">
+          <FilledButtonCard>+ ლისტინგის დამატება</FilledButtonCard>
         </Link>
-        <button className="text-flameRed border border-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-flameRed hover:text-white transition-colors">
-          + აგენტის დამატება
-        </button>
+
+        <Link to={"/add-agent"}>
+          <NotFilledButtonCard>+ აგენტის დამატება</NotFilledButtonCard>
+        </Link>
       </div>
     </>
   );

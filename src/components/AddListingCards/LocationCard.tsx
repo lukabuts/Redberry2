@@ -4,6 +4,7 @@ import LocationCardInterface from "../../assets/typescript/interfaces/locationCa
 import axios from "axios";
 import citiesType from "../../assets/typescript/types/citiesType";
 import ValidationCard from "./ValidationCard";
+import LabelCard from "../TitleCards/LabelCard";
 
 const LocationCard = ({
   selectedRegion,
@@ -79,9 +80,7 @@ const LocationCard = ({
           {/* Address */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <label htmlFor="address" className="text-sm font-semibold">
-                მისამართი *
-              </label>
+              <LabelCard HTMLfor="address">მისამართი *</LabelCard>
               <input
                 required
                 type="text"
@@ -109,9 +108,7 @@ const LocationCard = ({
           {/* Zip Code */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <label htmlFor="zipCode" className="text-sm font-semibold">
-                საფოსტო ინდექსი *
-              </label>
+              <LabelCard HTMLfor="zipCode">საფოსტო ინდექსი *</LabelCard>
               <input
                 required
                 min={0}
@@ -142,9 +139,7 @@ const LocationCard = ({
           {/* Region */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <label htmlFor="region" className="text-sm font-semibold">
-                რეგიონი *
-              </label>
+              <LabelCard HTMLfor="region">რეგიონი *</LabelCard>
               <select
                 name="region"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer ${
@@ -169,9 +164,7 @@ const LocationCard = ({
           {/* City */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <label htmlFor="city" className="text-sm font-semibold">
-                ქალაქი *
-              </label>
+              <LabelCard HTMLfor="city">ქალაქი *</LabelCard>
               <select
                 name="city"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer disabled:cursor-default ${

@@ -37,12 +37,12 @@ const RegionsCard = ({
       </button>
 
       {isRegionsInfoLoading && shownFilterPopUP ? (
-        <div className="absolute left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-50">
+        <div className="absolute left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10">
           <span>Loading...</span>
         </div>
       ) : (
         shownFilterPopUP === "region" && (
-          <div className="absolute flex flex-col left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-50">
+          <div className="absolute flex flex-col left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10">
             <div className="mb-6">
               <p className="text-deepBlue font-bold text-base">
                 რეგიონის მიხედვით

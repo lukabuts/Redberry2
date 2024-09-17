@@ -1,12 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import AddAgent from "./components/AddAgent/AddAgent";
+import AddAgent from "./pages/AddAgent/AddAgent";
 import Header from "./components/Header/Header";
 import Listing from "./pages/Listing/Listing";
 import AddListing from "./pages/AddListing/AddListing";
 import React, { createContext, useEffect, useState } from "react";
 import regionsType from "./assets/typescript/types/regions";
 import axios from "axios";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 export const TokenContext = createContext("");
 export const IsRegionsInfoLoadingContext = React.createContext<boolean>(false);
@@ -18,6 +19,7 @@ function App() {
   const [isRegionsInfoLoading, setIsRegionsInfoLoading] = useState(false);
   const [regions, setRegions] = useState<regionsType[]>([]);
 
+  // Get Regions
   useEffect(() => {
     setIsRegionsInfoLoading(true);
     axios
@@ -44,6 +46,7 @@ function App() {
     <div className="font-firago">
       <Router>
         <Header />
+        <ScrollToTop />
         <TokenContext.Provider value={token}>
           <IsRegionsInfoLoadingContext.Provider value={isRegionsInfoLoading}>
             <RegionsContext.Provider value={regions}>

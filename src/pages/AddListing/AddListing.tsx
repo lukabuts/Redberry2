@@ -3,8 +3,12 @@ import DealTypeCard from "../../components/AddListingCards/DealTypeCard";
 import LocationCard from "../../components/AddListingCards/LocationCard";
 import EstateDetails from "../../components/AddListingCards/EstateDetails";
 import SelectAgentCard from "../../components/AddListingCards/SelectAgentCard";
-import ActionButtonsCard from "../../components/AddListingCards/ActionButtonsCard";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
+import MainTitleCard from "../../components/TitleCards/MainTitleCard";
+import UploadImageCard from "../../components/UploadImageCard/UploadImageCard";
+import NotFilledButtonCard from "../../components/Buttons/NotFilledButtonCard";
+import { useNavigate } from "react-router";
+import FilledButtonCard from "../../components/Buttons/FilledButtonCard";
 
 const AddListing = () => {
   // Saved inserted details
@@ -111,11 +115,17 @@ const AddListing = () => {
     );
   }, [insertedEstateDetails]);
 
+  const navigate = useNavigate();
+
+  // Handle Cancel Operation
+  function handleCancelOperation() {
+    navigate("/");
+    localStorage.removeItem("addListingInfo");
+  }
+
   return (
     <form className="py-14 max-w-4xl mx-auto w-full flex flex-col gap-20">
-      <div className="text-center">
-        <h1 className="text-deepBlue text-3xl font-bold">ლისტინგის დამატება</h1>
-      </div>
+      <MainTitleCard>ლისტინგის დამატება</MainTitleCard>
       <div>
         <DealTypeCard
           isForSale={isForSale}
@@ -158,14 +168,20 @@ const AddListing = () => {
           setDescription={setDescription}
           invalidDescription={invalidDescription}
           setInvalidDescription={setInvalidDescription}
-          setImage={setImage}
-          setImageError={setImageError}
-          imageError={imageError}
-          image={image}
-          imagePreviewUrl={imagePreviewUrl}
-          setImagePreviewUrl={setImagePreviewUrl}
         />
+        {/* Upload Photo */}
+        <div className="flex flex-col gap-1 mt-5">
+          <UploadImageCard
+            setImage={setImage}
+            setImageError={setImageError}
+            imageError={imageError}
+            image={image}
+            imagePreviewUrl={imagePreviewUrl}
+            setImagePreviewUrl={setImagePreviewUrl}
+          />
+        </div>
       </div>
+
       <div>
         <SelectAgentCard
           selectedAgent={selectedAgent}
@@ -173,7 +189,12 @@ const AddListing = () => {
         />
       </div>
       <div className="flex gap-7 justify-end mt-2">
-        <ActionButtonsCard />
+        <div onClick={handleCancelOperation}>
+          <NotFilledButtonCard>გაუქმება</NotFilledButtonCard>
+        </div>
+        <div>
+          <FilledButtonCard>დაამატე ლისტინგი</FilledButtonCard>
+        </div>
       </div>
     </form>
   );

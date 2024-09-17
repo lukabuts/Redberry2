@@ -15,10 +15,4 @@ export default interface EstateDetailsInterface {
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   invalidDescription: boolean;
   setInvalidDescription: React.Dispatch<React.SetStateAction<boolean>>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-  setImageError: React.Dispatch<React.SetStateAction<boolean>>;
-  imageError: boolean;
-  image: string;
-  imagePreviewUrl: string;
-  setImagePreviewUrl: React.Dispatch<React.SetStateAction<string>>;
 }
