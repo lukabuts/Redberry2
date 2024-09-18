@@ -33,7 +33,12 @@ const RegionsCard = ({
         className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded"
       >
         <span>რეგიონი</span>
-        <img src={dropDownIcon} className="w-3.5 h-3.5" alt="Dropdown" />
+        <img
+          loading="lazy"
+          src={dropDownIcon}
+          className="w-3.5 h-3.5"
+          alt="Dropdown"
+        />
       </button>
 
       {isRegionsInfoLoading && shownFilterPopUP ? (

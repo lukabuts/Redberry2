@@ -5,39 +5,55 @@ import postIcon from "../../assets/images/post_code.svg";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
 const RealEstateCard = ({ realEstate }: { realEstate: realEstateType }) => {
   return (
-    <div className="relative hover:shadow-md transition-all rounded-xl overflow-hidden">
+    <div className="relative hover:shadow-md transition-all rounded-xl overflow-hidden w-estateCardWidth">
       <div className="h-80 overflow-hidden flex justify-center items-center">
         <img
+          loading="lazy"
           src={realEstate.image}
           alt="Real estate image"
           className="object-cover w-full h-full"
         />
       </div>
-      <div className="border border-lightGray rounded-b-xl p-5">
+      <div className="border border-lightGray border-t-0 rounded-b-xl p-5">
         <div>
-          <h2 className="f font-bold text-2xl">{realEstate.price} ₾</h2>
+          <h2 className="font-bold text-2xl">{realEstate.price} ₾</h2>
         </div>
         <div className="flex items-center gap-1 mb-4 mt-1.5">
-          <img src={locationIcon} alt="Location" className="w-5 h-5" />
+          <img
+            loading="lazy"
+            src={locationIcon}
+            alt="Location"
+            className="w-5 h-5"
+          />
           <span className="text-deepBlue opacity-70 text-sm">
             {realEstate.city.name}, {realEstate.address}
           </span>
         </div>
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-1">
-            <img className="w-5 h-5" src={bedIcon} alt="Bedroom" />
+            <img
+              loading="lazy"
+              className="w-5 h-5"
+              src={bedIcon}
+              alt="Bedroom"
+            />
             <span className="text-deepBlue opacity-70 text-sm">
               {realEstate.bedrooms}
             </span>
           </div>
           <div className="flex items-center gap-1">
-            <img className="w-5 h-5" src={areaIcon} alt="Area" />
+            <img loading="lazy" className="w-5 h-5" src={areaIcon} alt="Area" />
             <span className="text-deepBlue opacity-70 text-sm">
               {realEstate.area} მ²
             </span>
           </div>
           <div className="flex items-center gap-1">
-            <img className="w-5 h-5" src={postIcon} alt="Zip Code" />
+            <img
+              loading="lazy"
+              className="w-5 h-5"
+              src={postIcon}
+              alt="Zip Code"
+            />
             <span className="text-deepBlue opacity-70 text-sm">
               {realEstate.zip_code}
             </span>

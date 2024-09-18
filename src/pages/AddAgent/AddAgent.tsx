@@ -11,6 +11,7 @@ import axios from "axios";
 import { TokenContext } from "../../App";
 import { base64ToFile } from "../../utils/imageUtils";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
+import PopUpWrapper from "../../components/PopUpWrapper/PopUpWrapper";
 
 const AddAgent = () => {
   // token
@@ -178,13 +179,9 @@ const AddAgent = () => {
   }
 
   return (
-    <div
-      className="fixed top-0 left-0 w-full h-full z-50 bg-deepBlue/35 backdrop-blur-sm"
-      onClick={exitAddAgentDialog}
-    >
-      <div className="relative w-full h-full flex items-center justify-center">
+    <PopUpWrapper exitDialog={exitAddAgentDialog}>
+      <div className="flex gap-16 flex-col bg-white px-28 py-24 rounded-lg w-full max-w-5xl">
         <form
-          className="flex gap-16 flex-col bg-white px-28 py-24 rounded-lg w-full max-w-5xl"
           onClick={(e) => {
             e.stopPropagation();
           }}
@@ -248,9 +245,9 @@ const AddAgent = () => {
             </FilledButtonCard>
           </div>
         </form>
-        {isAgentCreating && <LoadingCard />}
       </div>
-    </div>
+      {isAgentCreating && <LoadingCard />}
+    </PopUpWrapper>
   );
 };
 

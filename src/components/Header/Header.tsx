@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="px-36 py-10 border-b border-lightGray">
       <Link to="/">
-        <img src={redberryLogo} alt="Redberry Logo" />
+        <img loading="lazy" src={redberryLogo} alt="Redberry Logo" />
       </Link>
     </header>
   );

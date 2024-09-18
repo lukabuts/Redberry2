@@ -214,8 +214,6 @@ const AddListing = () => {
         agent_id: selectedAgent,
       };
 
-      console.log(typeof isRental);
-
       axios
         .post(
           "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",

@@ -84,6 +84,7 @@ const UploadImageCard = ({
         {image ? (
           <div className="relative max-h-28 h-full">
             <img
+              loading="lazy"
               src={imagePreviewUrl}
               alt="Uploaded Image"
               className="object-contain w-full h-full rounded-md"
@@ -93,11 +94,21 @@ const UploadImageCard = ({
               type="button"
               onClick={removeImage}
             >
-              <img src={trashIcon} alt="Trash" className="w-6 h-6" />
+              <img
+                loading="lazy"
+                src={trashIcon}
+                alt="Trash"
+                className="w-6 h-6"
+              />
             </button>
           </div>
         ) : (
-          <img src={circlePlusIcon} alt="Plus" className="w-6 h-6" />
+          <img
+            loading="lazy"
+            src={circlePlusIcon}
+            alt="Plus"
+            className="w-6 h-6"
+          />
         )}
       </div>
       <ValidationCard

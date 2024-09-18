@@ -39,19 +39,34 @@ const FilteringCard = () => {
           <div>
             <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
               <span>საფასო კატეგორია</span>
-              <img src={dropDownImg} className="w-3.5 h-3.5" alt="Dropdown" />
+              <img
+                loading="lazy"
+                src={dropDownImg}
+                className="w-3.5 h-3.5"
+                alt="Dropdown"
+              />
             </button>
           </div>
           <div>
             <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
               <span>ფართობი</span>
-              <img src={dropDownImg} className="w-3.5 h-3.5" alt="Dropdown" />
+              <img
+                loading="lazy"
+                src={dropDownImg}
+                className="w-3.5 h-3.5"
+                alt="Dropdown"
+              />
             </button>
           </div>
           <div>
             <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
               <span>საძინებლების რაოდენობა</span>
-              <img src={dropDownImg} className="w-3.5 h-3.5" alt="Dropdown" />
+              <img
+                loading="lazy"
+                src={dropDownImg}
+                className="w-3.5 h-3.5"
+                alt="Dropdown"
+              />
             </button>
           </div>
         </div>

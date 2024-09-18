@@ -16,9 +16,19 @@ export default {
         slateGray: "#808A93",
         errColor: "#F93B1D",
         successColor: "#45A849",
+        darkGray: "#676E76",
       },
       gridTemplateColumns: {
-        autoFillEstateCard: "repeat(auto-fill, 384px)",
+        autoFillEstateCard: "repeat(auto-fill, 24rem)",
+      },
+      width: {
+        detailedEstateImgWidth: "52.5rem",
+        agentAvatarWidth: "4.5rem",
+        estateCardWidth: "24rem",
+      },
+      height: {
+        detailedEstateHeight: "42rem",
+        agentAvatarHeight: "4.5rem",
       },
     },
   },
