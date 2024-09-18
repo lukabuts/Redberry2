@@ -20,6 +20,7 @@ export function getRealEstates(
     )
     .then((res) => {
       setRealEstates(res.data);
+      console.log("Getting Real Estates");
     })
     .catch((err) => {
       console.log("Error:", err);
