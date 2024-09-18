@@ -1,12 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-import {
-  IsRealEstatesLoadingContext,
-  RealEstatesContext,
-  RealEstatesErrorContext,
-  TokenContext,
-} from "../../App";
 import { detailedRealEstateType } from "../../assets/typescript/types/detailedRealEstateType";
 import backIcon from "../../assets/images/IconRight.svg";
 import { Link } from "react-router-dom";
@@ -14,6 +8,8 @@ import { realEstateType } from "../../assets/typescript/types/realEstateType";
 import DetailedRealEstateCard from "../../components/ListingCards/DetailedRealEstateCard";
 import DetailedRealEstatePopUp from "../../components/ListingCards/DetailedRealEstatePopUp";
 import SimilarRealEstatesCard from "../../components/ListingCards/SimilarRealEstatesCard";
+import { getRealEstates } from "../../utils/getRealEstates";
+import { TokenContext } from "../../App";
 
 const Listing = () => {
   const location = useLocation();
@@ -25,10 +21,10 @@ const Listing = () => {
   const [realEstate, setRealEstate] = useState<detailedRealEstateType>();
   const [isRealEstateLoading, setIsRealEstateLoading] = useState(true);
   const [realEstateError, setRealEstateError] = useState("");
-  // Real Estates
-  const isRealEstatesLoading = useContext(IsRealEstatesLoadingContext);
-  const realEstatesError = useContext(RealEstatesErrorContext);
-  const realEstates = useContext(RealEstatesContext);
+  // Real estates
+  const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
+  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
+  const [realEstatesError, setRealEstatesError] = useState("");
   // Filtered Real estates
   const [similarRealEstates, setSimilarRealEstates] = useState<
     realEstateType[]
@@ -37,7 +33,7 @@ const Listing = () => {
   // Show Popup
   const [showPopUp, setShowPopUp] = useState(false);
 
-  // Get Real Estate
+  // Get Real Estate With Id
   useEffect(() => {
     setIsRealEstateLoading(true);
     axios
@@ -62,6 +58,16 @@ const Listing = () => {
       });
   }, [location]);
 
+  // Get Real Estates
+  useEffect(() => {
+    getRealEstates(
+      setIsRealEstatesLoading,
+      token,
+      setRealEstates,
+      setRealEstatesError
+    );
+  }, []);
+
   // Setting Similar Real Estates
   useEffect(() => {
     const filteredEstates = realEstates.filter((estate) => {
@@ -70,8 +76,6 @@ const Listing = () => {
         estate.id !== realEstate.id
       );
     });
-
-    console.log(filteredEstates);
 
     setSimilarRealEstates(filteredEstates);
   }, [realEstates, realEstate]);

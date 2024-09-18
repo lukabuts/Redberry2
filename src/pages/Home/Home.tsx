@@ -3,17 +3,27 @@ import RealEstateCard from "../../components/RealEstateCard/RealEstateCard";
 import FilteringCard from "../../components/FilteringCard/FilteringCard";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import {
-  IsRealEstatesLoadingContext,
-  RealEstatesContext,
-  RealEstatesErrorContext,
-} from "../../App";
+import { useContext, useEffect, useState } from "react";
+import { getRealEstates } from "../../utils/getRealEstates";
+import { TokenContext } from "../../App";
+import { realEstateType } from "../../assets/typescript/types/realEstateType";
 
 const Home = () => {
-  const isRealEstatesLoading = useContext(IsRealEstatesLoadingContext);
-  const realEstatesError = useContext(RealEstatesErrorContext);
-  const realEstates = useContext(RealEstatesContext);
+  const token = useContext(TokenContext);
+  // Real estates
+  const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
+  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
+  const [realEstatesError, setRealEstatesError] = useState("");
+
+  // Get Real Estates
+  useEffect(() => {
+    getRealEstates(
+      setIsRealEstatesLoading,
+      token,
+      setRealEstates,
+      setRealEstatesError
+    );
+  }, []);
   return (
     <div className="mx-36 mt-16 mb-14">
       <div className="flex justify-between mb-8 items-center">

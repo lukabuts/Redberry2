@@ -8,14 +8,10 @@ import React, { useEffect, useState } from "react";
 import regionsType from "./assets/typescript/types/regions";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-import { realEstateType } from "./assets/typescript/types/realEstateType";
 
 export const TokenContext = React.createContext("");
 export const IsRegionsInfoLoadingContext = React.createContext<boolean>(false);
 export const RegionsContext = React.createContext<regionsType[]>([]);
-export const RealEstatesContext = React.createContext<realEstateType[]>([]);
-export const IsRealEstatesLoadingContext = React.createContext<boolean>(false);
-export const RealEstatesErrorContext = React.createContext<string>("");
 
 function App() {
   const location = useLocation();
@@ -23,10 +19,7 @@ function App() {
   // Regions
   const [isRegionsInfoLoading, setIsRegionsInfoLoading] = useState(false);
   const [regions, setRegions] = useState<regionsType[]>([]);
-  // Real estates
-  const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
-  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
-  const [realEstatesError, setRealEstatesError] = useState("");
+
   // Get Regions
   useEffect(() => {
     setIsRegionsInfoLoading(true);
@@ -51,31 +44,8 @@ function App() {
       });
   }, []);
   // Get Real Estates
-  useEffect(() => {
-    console.log("changes");
+  useEffect(() => {}, [location.pathname]);
 
-    setIsRealEstatesLoading(true);
-    axios
-      .get(
-        "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setRealEstates(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setRealEstatesError(err.message);
-      })
-      .finally(() => {
-        setIsRealEstatesLoading(false);
-      });
-  }, [location]);
   return (
     <div className="font-firago">
       <Header />
@@ -83,21 +53,13 @@ function App() {
       <TokenContext.Provider value={token}>
         <IsRegionsInfoLoadingContext.Provider value={isRegionsInfoLoading}>
           <RegionsContext.Provider value={regions}>
-            <RealEstatesContext.Provider value={realEstates}>
-              <IsRealEstatesLoadingContext.Provider
-                value={isRealEstatesLoading}
-              >
-                <RealEstatesErrorContext.Provider value={realEstatesError}>
-                  <Routes>
-                    <Route path="/" element={<Home />}>
-                      <Route path="add-agent" element={<AddAgent />} />
-                    </Route>
-                    <Route path="/real-estates/:id" element={<Listing />} />
-                    <Route path="/add-listing/" element={<AddListing />} />
-                  </Routes>
-                </RealEstatesErrorContext.Provider>
-              </IsRealEstatesLoadingContext.Provider>
-            </RealEstatesContext.Provider>
+            <Routes>
+              <Route path="/" element={<Home />}>
+                <Route path="add-agent" element={<AddAgent />} />
+              </Route>
+              <Route path="/real-estates/:id" element={<Listing />} />
+              <Route path="/add-listing/" element={<AddListing />} />
+            </Routes>
           </RegionsContext.Provider>
         </IsRegionsInfoLoadingContext.Provider>
       </TokenContext.Provider>
