@@ -12,7 +12,7 @@ const Home = () => {
   const token = useContext(TokenContext);
   // Real estates
   const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
-  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
+  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(true);
   const [realEstatesError, setRealEstatesError] = useState("");
 
   // Get Real Estates

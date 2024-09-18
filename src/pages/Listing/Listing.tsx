@@ -23,7 +23,7 @@ const Listing = () => {
   const [realEstateError, setRealEstateError] = useState("");
   // Real estates
   const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
-  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
+  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(true);
   const [realEstatesError, setRealEstatesError] = useState("");
   // Filtered Real estates
   const [similarRealEstates, setSimilarRealEstates] = useState<
