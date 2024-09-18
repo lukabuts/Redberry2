@@ -3,7 +3,6 @@ import DealTypeCard from "../../components/AddListingCards/DealTypeCard";
 import LocationCard from "../../components/AddListingCards/LocationCard";
 import EstateDetails from "../../components/AddListingCards/EstateDetails";
 import SelectAgentCard from "../../components/AddListingCards/SelectAgentCard";
-import { realEstateType } from "../../assets/typescript/types/realEstateType";
 import MainTitleCard from "../../components/TitleCards/MainTitleCard";
 import UploadImageCard from "../../components/UploadImageCard/UploadImageCard";
 import NotFilledButtonCard from "../../components/Buttons/NotFilledButtonCard";
@@ -13,13 +12,14 @@ import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
 import { base64ToFile } from "../../utils/imageUtils";
 import axios from "axios";
 import { TokenContext } from "../../App";
+import { AddRealEstateType } from "../../assets/typescript/types/AddRealEstateType";
 
 const AddListing = () => {
   // Token
   const token = useContext(TokenContext);
   // Saved inserted details
   const detailsFromLocalStorage = localStorage.getItem("addListingDetails");
-  const savedInsertedDetails: realEstateType =
+  const savedInsertedDetails: AddRealEstateType =
     detailsFromLocalStorage && detailsFromLocalStorage !== "undefined"
       ? JSON.parse(detailsFromLocalStorage)
       : null;
@@ -83,7 +83,7 @@ const AddListing = () => {
   const [invalidAgent, setInvalidAgent] = useState<boolean>(false);
   // Inserted Details
   const [insertedEstateDetails, setInsertedEstateDetails] =
-    useState<realEstateType>();
+    useState<AddRealEstateType>();
 
   // IsEvrithingValidated
   const [isEverithingValidated, setIsEverithingValidated] = useState(true);
@@ -93,7 +93,7 @@ const AddListing = () => {
 
   // Setting inserted estate datails
   useEffect(() => {
-    const details: realEstateType = {
+    const details: AddRealEstateType = {
       address: address,
       region_id: selectedRegion,
       image: image,

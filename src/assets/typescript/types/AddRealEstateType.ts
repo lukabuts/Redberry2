@@ -1,4 +1,4 @@
-export type realEstateType = {
+export type AddRealEstateType = {
   address: string;
   image: string;
   region_id: number;
