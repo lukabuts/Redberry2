@@ -5,6 +5,8 @@ import axios from "axios";
 import citiesType from "../../assets/typescript/types/citiesType";
 import ValidationCard from "./ValidationCard";
 import LabelCard from "../TitleCards/LabelCard";
+import { validateNumericValue } from "../../utils/validateNumericValues";
+import { validateString } from "../../utils/validateStrings";
 
 const LocationCard = ({
   selectedRegion,
@@ -19,6 +21,10 @@ const LocationCard = ({
   invalidAddress,
   invalidZipCode,
   setInvalidZipCode,
+  invalidCity,
+  setInvalidCity,
+  invalidRegion,
+  setInvalidRegion,
 }: LocationCardInterface) => {
   const regions = useContext(RegionsContext);
   const token = useContext(TokenContext);
@@ -44,31 +50,13 @@ const LocationCard = ({
 
   // Validate Address
   useEffect(() => {
-    validateAddress();
+    validateString(address, setInvalidAddress, 2);
   }, [address]);
-  function validateAddress() {
-    if (address.trim().length < 2 && address.trim().length > 0) {
-      setInvalidAddress(true);
-    } else {
-      setInvalidAddress(false);
-    }
-  }
 
   // Handle Invalid Zipcode
   useEffect(() => {
-    handleInvalidZipCode();
+    validateNumericValue(zipCode, setInvalidZipCode);
   }, [zipCode]);
-
-  // Validate ZIpcode
-  function handleInvalidZipCode() {
-    const numericValue = Number(zipCode);
-
-    if (isNaN(numericValue) || numericValue < 0) {
-      setInvalidZipCode(true);
-    } else {
-      setInvalidZipCode(false);
-    }
-  }
 
   return (
     <>
@@ -86,7 +74,7 @@ const LocationCard = ({
                 type="text"
                 min={2}
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                  invalidAddress
+                  invalidAddress && address.trim()
                     ? "border-errColor"
                     : address.trim()
                     ? "border-successColor"
@@ -100,7 +88,7 @@ const LocationCard = ({
               />
             </div>
             <ValidationCard
-              isError={invalidAddress}
+              isError={invalidAddress && !!address.trim()}
               validationMsg="მინიმუმ ორი სიმბოლო"
               valueEntered={address.trim()}
             />
@@ -114,7 +102,7 @@ const LocationCard = ({
                 min={0}
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                  invalidZipCode
+                  invalidZipCode && zipCode.trim()
                     ? "border-errColor"
                     : zipCode.trim()
                     ? "border-successColor"
@@ -128,7 +116,7 @@ const LocationCard = ({
               />
             </div>
             <ValidationCard
-              isError={invalidZipCode}
+              isError={invalidZipCode && !!zipCode.trim()}
               validationMsg="მხოლოდ რიცხვები"
               valueEntered={zipCode.trim()}
             />
@@ -143,10 +131,15 @@ const LocationCard = ({
               <select
                 name="region"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer ${
-                  selectedRegion ? "border-successColor" : "border-slateGray"
+                  invalidRegion
+                    ? "border-errColor"
+                    : selectedRegion
+                    ? "border-successColor"
+                    : "border-slateGray"
                 }`}
                 onChange={(e) => {
                   setSelectedRegion(Number(e.target.value));
+                  setInvalidRegion(false);
                 }}
                 value={selectedRegion}
                 required
@@ -168,10 +161,15 @@ const LocationCard = ({
               <select
                 name="city"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer disabled:cursor-default ${
-                  selectedCity ? "border-successColor" : "border-slateGray"
+                  invalidCity
+                    ? "border-errColor"
+                    : selectedCity
+                    ? "border-successColor"
+                    : "border-slateGray"
                 }`}
                 onChange={(e) => {
                   setSelectedCity(Number(e.target.value));
+                  setInvalidCity(false);
                 }}
                 value={selectedCity}
                 disabled={!selectedRegion}

@@ -2,6 +2,8 @@ import ValidationCard from "./ValidationCard";
 import EstateDetailsInterface from "../../assets/typescript/interfaces/estateDetailsInterface";
 import { useEffect } from "react";
 import LabelCard from "../TitleCards/LabelCard";
+import { validateNumericValue } from "../../utils/validateNumericValues";
+import { validateString } from "../../utils/validateStrings";
 
 const EstateDetails = ({
   price,
@@ -23,11 +25,7 @@ const EstateDetails = ({
 }: EstateDetailsInterface) => {
   // Handle Description error
   useEffect(() => {
-    if (description.length < 5 && description.trim().length > 0) {
-      setInvalidDescription(true);
-    } else {
-      setInvalidDescription(false);
-    }
+    validateString(description, setInvalidDescription, 5);
   }, [description]);
 
   // Handle Invalid Price error
@@ -40,19 +38,15 @@ const EstateDetails = ({
     validateNumericValue(area, setInvalidArea);
   }, [area]);
 
-  // Validate Numeric values
-  function validateNumericValue(
-    value: string,
-    setInvalidValue: React.Dispatch<React.SetStateAction<boolean>>
-  ) {
-    const numericValue = Number(value);
-
-    if (isNaN(numericValue) || numericValue < 0) {
-      setInvalidValue(true);
-    } else {
-      setInvalidValue(false);
+  // Handle Invalid Bedrooms error
+  useEffect(() => {
+    const numericValue = Number(bedrooms);
+    if (!Number.isInteger(numericValue)) {
+      setInvalidBedrooms(true);
+      return;
     }
-  }
+    validateNumericValue(bedrooms, setInvalidBedrooms);
+  }, [bedrooms]);
 
   return (
     <>
@@ -72,7 +66,7 @@ const EstateDetails = ({
                 min={0}
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                  invalidPrice
+                  invalidPrice && price.trim()
                     ? "border-errColor"
                     : price.trim()
                     ? "border-successColor"
@@ -86,7 +80,7 @@ const EstateDetails = ({
               />
             </div>
             <ValidationCard
-              isError={invalidPrice}
+              isError={invalidPrice && !!price.trim()}
               valueEntered={price.trim()}
               validationMsg="მხოლოდ დადებითი რიცხვები"
             />
@@ -100,7 +94,7 @@ const EstateDetails = ({
                 required
                 type="number"
                 className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                  invalidArea
+                  invalidArea && area.trim()
                     ? "border-errColor"
                     : area.trim()
                     ? "border-successColor"
@@ -114,7 +108,7 @@ const EstateDetails = ({
               />
             </div>
             <ValidationCard
-              isError={invalidArea}
+              isError={invalidArea && !!area.trim()}
               validationMsg="მხოლოდ დადებითი რიცხვები"
               valueEntered={area.trim()}
             />
@@ -131,7 +125,7 @@ const EstateDetails = ({
               required
               type="number"
               className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-                invalidBedrooms
+                invalidBedrooms && bedrooms.trim()
                   ? "border-errColor"
                   : bedrooms.trim()
                   ? "border-successColor"
@@ -139,27 +133,13 @@ const EstateDetails = ({
               }`}
               id="bedroomsCount"
               onChange={(e) => {
-                const value = e.target.value;
-                setBedrooms(value);
-                const numericValue = Number(value);
-                if (
-                  isNaN(numericValue) ||
-                  numericValue < 0 ||
-                  !Number.isInteger(numericValue)
-                ) {
-                  setInvalidBedrooms(true);
-                } else {
-                  setInvalidBedrooms(false);
-                }
-              }}
-              onInput={() => {
-                console.log("hiii");
+                setBedrooms(e.target.value);
               }}
               value={bedrooms}
             />
           </div>
           <ValidationCard
-            isError={invalidBedrooms}
+            isError={invalidBedrooms && !!bedrooms.trim()}
             validationMsg="მხოლოდ მთელი დადებითი რიცხვები"
             valueEntered={bedrooms.trim()}
           />
@@ -170,7 +150,7 @@ const EstateDetails = ({
           <textarea
             id="description"
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none h-32 ${
-              invalidDescription
+              invalidDescription && description.trim()
                 ? "border-errColor"
                 : description.trim()
                 ? "border-successColor"
@@ -182,7 +162,7 @@ const EstateDetails = ({
             value={description}
           ></textarea>
           <ValidationCard
-            isError={invalidDescription}
+            isError={invalidDescription && !!description.trim()}
             validationMsg="მინიმუმ ხუთი სიტყვა"
             valueEntered={description.trim()}
           />

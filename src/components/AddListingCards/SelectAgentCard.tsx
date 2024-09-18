@@ -7,6 +7,8 @@ import { agentsType } from "../../assets/typescript/types/agentsType";
 const SelectAgentCard = ({
   selectedAgent,
   setSelectedAgent,
+  invalidAgent,
+  setInvalidAgent,
 }: SelectedAgentInterface) => {
   const token = useContext(TokenContext);
   const [agents, setAgents] = useState<agentsType[]>([]);
@@ -35,10 +37,15 @@ const SelectAgentCard = ({
         <select
           name="region"
           className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer disabled:cursor-default ${
-            selectedAgent ? "border-successColor" : "border-slateGray"
+            invalidAgent
+              ? "border-errColor"
+              : selectedAgent
+              ? "border-successColor"
+              : "border-slateGray"
           }`}
           onChange={(e) => {
             setSelectedAgent(Number(e.target.value));
+            setInvalidAgent(false);
           }}
           value={selectedAgent}
           required

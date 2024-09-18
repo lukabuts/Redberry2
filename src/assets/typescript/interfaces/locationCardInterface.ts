@@ -11,4 +11,8 @@ export default interface LocationCardInterface {
   setInvalidAddress: React.Dispatch<React.SetStateAction<boolean>>;
   invalidZipCode: boolean;
   setInvalidZipCode: React.Dispatch<React.SetStateAction<boolean>>;
+  invalidCity: boolean;
+  setInvalidCity: React.Dispatch<React.SetStateAction<boolean>>;
+  invalidRegion: boolean;
+  setInvalidRegion: React.Dispatch<React.SetStateAction<boolean>>;
 }

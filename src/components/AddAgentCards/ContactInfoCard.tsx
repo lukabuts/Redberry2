@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import ContactInfoCardInterface from "../../assets/typescript/interfaces/contactInfoCardInterface";
 import ValidationCard from "../AddListingCards/ValidationCard";
 import LabelCard from "../TitleCards/LabelCard";
+import { validateNumericValue } from "../../utils/validateNumericValues";
 
 const ContactInfoCard = ({
   agentEmail,
@@ -29,22 +30,20 @@ const ContactInfoCard = ({
 
   // Validate Mobile Number
   useEffect(() => {
-    const numericValue = Number(agentMobileNumber);
-    if (
-      isNaN(numericValue) ||
-      agentMobileNumber.trim().length !== 9 ||
-      numericValue < 0
-    ) {
-      setInvalidAgentMobileNumber(true);
-    } else {
-      setInvalidAgentMobileNumber(false);
-    }
-
+    // setNumberStartsWithFive
     if (agentMobileNumber.startsWith("5")) {
       setNumberStartsWithFive(true);
     } else {
       setNumberStartsWithFive(false);
     }
+    // setInvalidAgentMobileNumber
+    if (agentMobileNumber.trim().length !== 9) {
+      setInvalidAgentMobileNumber(true);
+      return;
+    }
+
+    // Validate Numeric value
+    validateNumericValue(agentMobileNumber, setInvalidAgentMobileNumber);
   }, [agentMobileNumber]);
 
   return (

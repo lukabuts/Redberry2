@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import LabelCard from "../TitleCards/LabelCard";
 import ValidationCard from "../AddListingCards/ValidationCard";
 import AgentFullNameInterface from "../../assets/typescript/interfaces/agentFullNameCardInterface";
+import { validateString } from "../../utils/validateStrings";
 
 const AgentFullNameCard = ({
   agentName,
@@ -15,25 +16,14 @@ const AgentFullNameCard = ({
 }: AgentFullNameInterface) => {
   // Handle Invalid Name
   useEffect(() => {
-    handleInvalidFullName(agentName, setInvalidAgentName);
+    validateString(agentName, setInvalidAgentName, 2);
   }, [agentName]);
 
   // Handle Invalid Surname
   useEffect(() => {
-    handleInvalidFullName(agentSurname, setInvalidAgentSurname);
+    validateString(agentSurname, setInvalidAgentSurname, 2);
   }, [agentSurname]);
 
-  // Handle Invalid First and Last Names
-  function handleInvalidFullName(
-    value: string,
-    setInvalidValue: React.Dispatch<React.SetStateAction<boolean>>
-  ) {
-    if (value.trim().length < 2) {
-      setInvalidValue(true);
-    } else {
-      setInvalidValue(false);
-    }
-  }
   return (
     <>
       <div className="flex-1">
