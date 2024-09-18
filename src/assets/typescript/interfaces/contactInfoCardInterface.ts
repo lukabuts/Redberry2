@@ -7,4 +7,6 @@ export default interface ContactInfoCardInterface {
   setAgentMobileNumber: React.Dispatch<React.SetStateAction<string>>;
   invalidAgentMobileNumber: boolean;
   setInvalidAgentMobileNumber: React.Dispatch<React.SetStateAction<boolean>>;
+  numberStartsWithFive: boolean;
+  setNumberStartsWithFive: React.Dispatch<React.SetStateAction<boolean>>;
 }

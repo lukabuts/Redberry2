@@ -1,6 +1,6 @@
 export type realEstateType = {
   address: string;
-  image?: string;
+  image: string;
   region_id: number;
   description: string;
   city_id: number;
@@ -10,6 +10,7 @@ export type realEstateType = {
   bedrooms: string;
   is_rental: boolean;
   agent_id: number;
-  is_for_sale?: boolean;
+  is_for_sale: boolean;
   imagePreviewUrl: string;
+  imageName: string;
 };

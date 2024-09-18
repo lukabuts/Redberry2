@@ -12,13 +12,14 @@ const ContactInfoCard = ({
   setAgentMobileNumber,
   invalidAgentMobileNumber,
   setInvalidAgentMobileNumber,
+  numberStartsWithFive,
+  setNumberStartsWithFive,
 }: ContactInfoCardInterface) => {
   // Validate Email
   useEffect(() => {
     if (
-      (!agentEmail.endsWith("@redberry.ge") ||
-        agentEmail.split(" ").length > 1) &&
-      agentEmail.trim().length > 0
+      !agentEmail.endsWith("@redberry.ge") ||
+      agentEmail.split(" ").length > 1
     ) {
       setInvalidAgentEmail(true);
     } else {
@@ -30,14 +31,19 @@ const ContactInfoCard = ({
   useEffect(() => {
     const numericValue = Number(agentMobileNumber);
     if (
-      (isNaN(numericValue) ||
-        agentMobileNumber.trim().length !== 9 ||
-        numericValue < 0) &&
-      agentMobileNumber.trim().length > 0
+      isNaN(numericValue) ||
+      agentMobileNumber.trim().length !== 9 ||
+      numericValue < 0
     ) {
       setInvalidAgentMobileNumber(true);
     } else {
       setInvalidAgentMobileNumber(false);
+    }
+
+    if (agentMobileNumber.startsWith("5")) {
+      setNumberStartsWithFive(true);
+    } else {
+      setNumberStartsWithFive(false);
     }
   }, [agentMobileNumber]);
 
@@ -50,7 +56,7 @@ const ContactInfoCard = ({
             required
             type="email"
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-              invalidAgentEmail
+              invalidAgentEmail && agentEmail.trim()
                 ? "border-errColor"
                 : agentEmail.trim()
                 ? "border-successColor"
@@ -64,7 +70,7 @@ const ContactInfoCard = ({
           />
         </div>
         <ValidationCard
-          isError={invalidAgentEmail}
+          isError={invalidAgentEmail && !!agentEmail.trim()}
           validationMsg="გამოიყენეთ @redberry.ge ფოსტა"
           valueEntered={agentEmail.trim()}
         />
@@ -78,7 +84,8 @@ const ContactInfoCard = ({
             min={0}
             maxLength={9}
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-              invalidAgentMobileNumber
+              (invalidAgentMobileNumber || !numberStartsWithFive) &&
+              agentMobileNumber.trim()
                 ? "border-errColor"
                 : agentMobileNumber.trim()
                 ? "border-successColor"
@@ -92,8 +99,13 @@ const ContactInfoCard = ({
           />
         </div>
         <ValidationCard
-          isError={invalidAgentMobileNumber}
+          isError={invalidAgentMobileNumber && !!agentMobileNumber.trim()}
           validationMsg="მხოლოდ ცხრანიშნა რიცხვი"
+          valueEntered={agentMobileNumber.trim()}
+        />
+        <ValidationCard
+          isError={!numberStartsWithFive && !!agentMobileNumber.trim()}
+          validationMsg="უნდა იწყებოდეს 5-ით"
           valueEntered={agentMobileNumber.trim()}
         />
       </div>

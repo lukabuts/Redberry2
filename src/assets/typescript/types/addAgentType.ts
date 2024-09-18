@@ -5,4 +5,5 @@ export type addAgentType = {
   phone: string;
   avatar: string;
   avatarPreviewUrl: string;
+  imageName: string;
 };

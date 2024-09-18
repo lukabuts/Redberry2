@@ -10,11 +10,15 @@ const UploadImageCard = ({
   image,
   imagePreviewUrl,
   setImagePreviewUrl,
+  setImageName,
 }: UploadImageCardInterface) => {
   // Handle Image change
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      setImageError(true);
+      return;
+    }
 
     const fileSizeInMB = file.size / (1024 * 1024);
     if (fileSizeInMB > 1) {
@@ -33,6 +37,7 @@ const UploadImageCard = ({
 
         const imageUrl = URL.createObjectURL(file);
         setImagePreviewUrl(imageUrl);
+        setImageName(file.name);
 
         setImageError(false);
       });

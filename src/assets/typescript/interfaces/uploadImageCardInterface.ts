@@ -5,4 +5,5 @@ export default interface UploadImageCardInterface {
   image: string;
   imagePreviewUrl: string;
   setImagePreviewUrl: React.Dispatch<React.SetStateAction<string>>;
+  setImageName: React.Dispatch<React.SetStateAction<string>>;
 }

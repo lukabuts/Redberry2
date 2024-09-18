@@ -50,7 +50,7 @@ const SelectAgentCard = ({
           </option>
           {agents.map((agent) => (
             <option key={agent.id} value={agent.id}>
-              {agent.name}
+              {agent.name} {agent.surname}
             </option>
           ))}
         </select>

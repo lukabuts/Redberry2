@@ -63,6 +63,9 @@ const AddListing = () => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string>(
     savedInsertedDetails?.imagePreviewUrl || ""
   );
+  const [imageName, setImageName] = useState(
+    savedInsertedDetails?.imageName || ""
+  );
   // SelectedAgent
   const [selectedAgent, setSelectedAgent] = useState<number>(
     savedInsertedDetails?.agent_id || 0
@@ -88,6 +91,7 @@ const AddListing = () => {
       bedrooms: bedrooms,
       is_for_sale: isForSale,
       imagePreviewUrl: imagePreviewUrl,
+      imageName: imageName,
     };
 
     setInsertedEstateDetails(details);
@@ -105,6 +109,7 @@ const AddListing = () => {
     bedrooms,
     isForSale,
     imagePreviewUrl,
+    imageName,
   ]);
 
   // Saving Details in localstorage
@@ -178,6 +183,7 @@ const AddListing = () => {
             image={image}
             imagePreviewUrl={imagePreviewUrl}
             setImagePreviewUrl={setImagePreviewUrl}
+            setImageName={setImageName}
           />
         </div>
       </div>

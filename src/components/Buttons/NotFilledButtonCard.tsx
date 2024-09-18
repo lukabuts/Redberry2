@@ -1,10 +1,11 @@
-import React from "react";
+import { ButtonCardInterface } from "../../assets/typescript/interfaces/buttonCardInterface";
 
-const NotFilledButtonCard = ({ children }: { children: React.ReactNode }) => {
+const NotFilledButtonCard = ({ children, disabled }: ButtonCardInterface) => {
   return (
     <button
       type="button"
-      className="text-flameRed border border-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-flameRed hover:text-white transition-colors"
+      disabled={disabled}
+      className="text-flameRed border border-flameRed py-3.5 px-4 rounded-lg font-medium text-base hover:bg-flameRed hover:text-white transition-colors disabled:opacity-80"
     >
       {children}
     </button>

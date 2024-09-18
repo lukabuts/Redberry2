@@ -14,8 +14,7 @@ export const IsRegionsInfoLoadingContext = React.createContext<boolean>(false);
 export const RegionsContext = React.createContext<regionsType[]>([]);
 
 function App() {
-  const token =
-    "https://api.real-estate-manager.redberryinternship.ge/api/regions";
+  const token = "9d0865a9-c373-437a-b5a2-8ae953972b5c";
   const [isRegionsInfoLoading, setIsRegionsInfoLoading] = useState(false);
   const [regions, setRegions] = useState<regionsType[]>([]);
 

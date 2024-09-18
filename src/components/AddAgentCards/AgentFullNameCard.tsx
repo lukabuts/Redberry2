@@ -28,7 +28,7 @@ const AgentFullNameCard = ({
     value: string,
     setInvalidValue: React.Dispatch<React.SetStateAction<boolean>>
   ) {
-    if (value.trim().length < 2 && value.trim().length > 0) {
+    if (value.trim().length < 2) {
       setInvalidValue(true);
     } else {
       setInvalidValue(false);
@@ -43,7 +43,7 @@ const AgentFullNameCard = ({
             required
             type="text"
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-              invalidAgentName
+              invalidAgentName && agentName.trim()
                 ? "border-errColor"
                 : agentName.trim()
                 ? "border-successColor"
@@ -57,7 +57,7 @@ const AgentFullNameCard = ({
           />
         </div>
         <ValidationCard
-          isError={invalidAgentName}
+          isError={invalidAgentName && !!agentName.trim()}
           validationMsg="მინიმუმ ორი სიმბოლო"
           valueEntered={agentName.trim()}
         />
@@ -69,7 +69,7 @@ const AgentFullNameCard = ({
             required
             type="text"
             className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
-              invalidAgentSurname
+              invalidAgentSurname && agentSurname.trim()
                 ? "border-errColor"
                 : agentSurname.trim()
                 ? "border-successColor"
@@ -83,7 +83,7 @@ const AgentFullNameCard = ({
           />
         </div>
         <ValidationCard
-          isError={invalidAgentSurname}
+          isError={invalidAgentSurname && !!agentSurname.trim()}
           validationMsg="მინიმუმ ორი სიმბოლო"
           valueEntered={agentSurname.trim()}
         />
