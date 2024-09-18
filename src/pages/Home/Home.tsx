@@ -4,25 +4,42 @@ import FilteringCard from "../../components/FilteringCard/FilteringCard";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { getRealEstates } from "../../utils/getRealEstates";
+// import { getRealEstates } from "../../utils/getRealEstates";
 import { TokenContext } from "../../App";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
+import axios from "axios";
 
 const Home = () => {
   const token = useContext(TokenContext);
   // Real estates
   const [realEstates, setRealEstates] = useState<realEstateType[]>([]);
-  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(true);
+  const [isRealEstatesLoading, setIsRealEstatesLoading] = useState(false);
   const [realEstatesError, setRealEstatesError] = useState("");
 
   // Get Real Estates
   useEffect(() => {
-    getRealEstates(
-      setIsRealEstatesLoading,
-      token,
-      setRealEstates,
-      setRealEstatesError
-    );
+    setIsRealEstatesLoading(true);
+    axios
+      .get(
+        "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setRealEstates(res.data);
+        console.log("Getting Real Estates");
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+        setRealEstatesError(err.message);
+      })
+      .finally(() => {
+        setIsRealEstatesLoading(false);
+      });
   }, []);
   return (
     <div className="mx-36 mt-16 mb-14">
