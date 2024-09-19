@@ -6,22 +6,10 @@ import NotFilledButtonCard from "../Buttons/NotFilledButtonCard";
 import FilledButtonCard from "../Buttons/FilledButtonCard";
 
 const FilteringCard = () => {
-  const [shownFilterPopUP, setShownFilterPopUP] = useState<
-    "region" | "price" | "area" | "bedrooms" | ""
-  >("");
-
   const [selectedRegions, setSelectedRegions] = useState<number[]>(() => {
     const localStorageRegions = localStorage.getItem("selectedRegions");
     return localStorageRegions ? JSON.parse(localStorageRegions) : [];
   });
-
-  function showRegionFilter() {
-    if (shownFilterPopUP !== "region") {
-      setShownFilterPopUP("region");
-    } else {
-      setShownFilterPopUP("");
-    }
-  }
 
   useEffect(() => {
     localStorage.setItem("selectedRegions", JSON.stringify(selectedRegions));
@@ -29,15 +17,16 @@ const FilteringCard = () => {
   return (
     <>
       <div>
-        <div className="flex gap-10 p-1.5 border border-lightGray rounded-lg w-fit">
+        <div className="flex gap-10 border border-lightGray rounded-lg w-fit">
           <RegionsCard
-            showRegionFilter={showRegionFilter}
-            shownFilterPopUP={shownFilterPopUP}
             setSelectedRegions={setSelectedRegions}
             selectedRegions={selectedRegions}
           />
           <div>
-            <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
+            <button
+              className="flex items-center h-full text-nowrap gap-1 font-bold px-5 py-3.5 hover:bg-softGray transition-colors rounded"
+              popovertarget="poppp"
+            >
               <span>საფასო კატეგორია</span>
               <img
                 loading="lazy"
@@ -46,9 +35,15 @@ const FilteringCard = () => {
                 alt="Dropdown"
               />
             </button>
+            <div id="poppp" popover="">
+              HI there
+            </div>
           </div>
           <div>
-            <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
+            <button
+              className="flex items-center h-full text-nowrap gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded"
+              popovertarget="poppp2"
+            >
               <span>ფართობი</span>
               <img
                 loading="lazy"
@@ -57,9 +52,12 @@ const FilteringCard = () => {
                 alt="Dropdown"
               />
             </button>
+            <div id="poppp2" popover="">
+              Hola
+            </div>
           </div>
           <div>
-            <button className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
+            <button className="flex items-center h-full text-nowrap gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded">
               <span>საძინებლების რაოდენობა</span>
               <img
                 loading="lazy"

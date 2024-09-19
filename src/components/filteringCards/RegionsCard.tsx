@@ -4,8 +4,6 @@ import RegionsCardInterface from "../../assets/typescript/interfaces/regionsCard
 import { IsRegionsInfoLoadingContext, RegionsContext } from "../../App";
 
 const RegionsCard = ({
-  showRegionFilter,
-  shownFilterPopUP,
   setSelectedRegions,
   selectedRegions,
 }: RegionsCardInterface) => {
@@ -27,10 +25,11 @@ const RegionsCard = ({
     }
   }
   return (
-    <div className="relative">
+    <div className="relative z-10">
       <button
-        onClick={showRegionFilter}
-        className="flex items-center gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded"
+        popoverTarget="region-popup"
+        className="flex items-center text-nowrap gap-1 font-bold px-3.5 py-2 hover:bg-softGray transition-colors rounded h-full"
+        id="region-popup-btn"
       >
         <span>რეგიონი</span>
         <img
@@ -40,14 +39,17 @@ const RegionsCard = ({
           alt="Dropdown"
         />
       </button>
-
-      {isRegionsInfoLoading && shownFilterPopUP ? (
-        <div className="absolute left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10">
+      {/* Filter PopUp */}
+      <div
+        className="flex flex-col border border-lightGray bg-white p-6 rounded-lg"
+        popover=""
+        anchor="region-popup-btn"
+        id="region-popup"
+      >
+        {isRegionsInfoLoading ? (
           <span>Loading...</span>
-        </div>
-      ) : (
-        shownFilterPopUP === "region" && (
-          <div className="absolute flex flex-col left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10">
+        ) : (
+          <>
             <div className="mb-6">
               <p className="text-deepBlue font-bold text-base">
                 რეგიონის მიხედვით
@@ -83,9 +85,9 @@ const RegionsCard = ({
                 არჩევა
               </button>
             </div>
-          </div>
-        )
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };
