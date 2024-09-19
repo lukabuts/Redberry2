@@ -140,11 +140,9 @@ const AddListing = () => {
 
   // Handle Cancel Operation
   function handleCancelOperation() {
-    if (!isListingCreating) {
-      navigate("/");
-      localStorage.removeItem("addListingDetails");
-      setInsertedEstateDetails(undefined);
-    }
+    navigate("/");
+    localStorage.removeItem("addListingDetails");
+    setInsertedEstateDetails(undefined);
   }
 
   // Validating Every Value
@@ -237,13 +235,14 @@ const AddListing = () => {
           } else {
             console.error("Error uploading agent:", err.message);
           }
+        })
+        .finally(() => {
+          setIsListingCreating(false);
+          handleCancelOperation();
         });
     } catch (error) {
       console.error("Error processing the image:", error);
     }
-
-    setIsListingCreating(false);
-    handleCancelOperation();
   }
 
   return (
