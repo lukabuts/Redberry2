@@ -66,6 +66,11 @@ const Listing = () => {
       setRealEstates,
       setRealEstatesError
     );
+
+    return () => {
+      setRealEstates([]);
+      console.log("Done");
+    };
   }, []);
 
   // Setting Similar Real Estates

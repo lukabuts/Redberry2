@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 // import { getRealEstates } from "../../utils/getRealEstates";
 import { TokenContext } from "../../App";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
-import axios from "axios";
+import { getRealEstates } from "../../utils/getRealEstates";
 
 const Home = () => {
   const token = useContext(TokenContext);
@@ -18,29 +18,22 @@ const Home = () => {
 
   // Get Real Estates
   useEffect(() => {
-    setIsRealEstatesLoading(true);
-    axios
-      .get(
-        "https://api.real-estate-manager.redberryinternship.ge/api/real-estates",
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        setRealEstates(res.data);
-        console.log("Getting Real Estates");
-      })
-      .catch((err) => {
-        console.log("Error:", err);
-        setRealEstatesError(err.message);
-      })
-      .finally(() => {
-        setIsRealEstatesLoading(false);
-      });
+    getRealEstates(
+      setIsRealEstatesLoading,
+      token,
+      setRealEstates,
+      setRealEstatesError
+    );
+
+    return () => {
+      setRealEstates([]);
+      console.log("Done");
+    };
   }, []);
+
+  useEffect(() => {
+    console.log(realEstates);
+  }, [realEstates]);
   return (
     <div className="mx-36 mt-16 mb-14">
       <div className="flex justify-between mb-8 items-center">
