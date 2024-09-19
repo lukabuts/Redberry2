@@ -19,6 +19,7 @@ export function getRealEstates(
       }
     )
     .then((res) => {
+      console.log("respose from server " + res.data);
       setRealEstates(res.data);
     })
     .catch((err) => {
