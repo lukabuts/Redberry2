@@ -140,9 +140,11 @@ const AddListing = () => {
 
   // Handle Cancel Operation
   function handleCancelOperation() {
-    navigate("/");
-    localStorage.removeItem("addListingDetails");
-    setInsertedEstateDetails(undefined);
+    if (!isListingCreating) {
+      navigate("/");
+      localStorage.removeItem("addListingDetails");
+      setInsertedEstateDetails(undefined);
+    }
   }
 
   // Validating Every Value

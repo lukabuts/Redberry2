@@ -24,16 +24,8 @@ const Home = () => {
       setRealEstates,
       setRealEstatesError
     );
-
-    return () => {
-      setRealEstates([]);
-      console.log("Done");
-    };
   }, []);
 
-  useEffect(() => {
-    console.log(realEstates);
-  }, [realEstates]);
   return (
     <div className="mx-36 mt-16 mb-14">
       <div className="flex justify-between mb-8 items-center">

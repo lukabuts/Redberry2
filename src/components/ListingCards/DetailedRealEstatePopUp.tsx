@@ -34,9 +34,10 @@ const DetailedRealEstatePopUp = ({
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        navigate("/");
       });
-
-    navigate("/");
   }
   return (
     <PopUpWrapper

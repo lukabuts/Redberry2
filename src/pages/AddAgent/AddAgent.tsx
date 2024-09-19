@@ -101,9 +101,11 @@ const AddAgent = () => {
   // Closing The dialog
   const navigate = useNavigate();
   function exitAddAgentDialog() {
-    navigate("/");
-    localStorage.removeItem("addAgentDetails");
-    setInsertedAgentDetails(undefined);
+    if (!isAgentCreating) {
+      navigate("/");
+      localStorage.removeItem("addAgentDetails");
+      setInsertedAgentDetails(undefined);
+    }
   }
 
   // Validating Every Value
