@@ -28,21 +28,21 @@ const Home = () => {
 
   return (
     <div className="mx-36 mt-16 mb-14">
-      <div className="flex justify-between mb-8 items-center">
+      <section className="mb-8">
         <FilteringCard />
-      </div>
+      </section>
       {isRealEstatesLoading ? (
         <LoadingCard />
       ) : realEstatesError ? (
         <span className="text-errColor">Error: {realEstatesError}</span>
       ) : (
-        <div className="grid grid-cols-autoFillEstateCard justify-around gap-5">
+        <section className="grid grid-cols-autoFillEstateCard justify-around gap-5">
           {realEstates.map((realEstate) => (
             <Link to={`/real-estates/${realEstate.id}`} key={realEstate.id}>
               <RealEstateCard realEstate={realEstate} />
             </Link>
           ))}
-        </div>
+        </section>
       )}
       <Outlet />
     </div>
