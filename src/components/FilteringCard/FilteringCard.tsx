@@ -7,7 +7,7 @@ import PriceCategoryCard from "../filteringCards/PriceCategoryCard";
 import AreaCard from "../filteringCards/AreaCard";
 import BedroomCard from "../filteringCards/BedroomCard";
 import { filtersType } from "../../assets/typescript/types/filtersType";
-import { RegionsContext } from "../../App";
+import { RegionsContext, SetIsAddAgentShownContext } from "../../App";
 import ShowSelectedFiltersCard from "../filteringCards/ShowSelectedFiltersCard";
 import { FilteringCardInterface } from "../../assets/typescript/interfaces/filteringCardInterface";
 
@@ -26,6 +26,8 @@ const FilteringCard = ({
   setSelectedFilters,
   isAnyFilterSelected,
 }: FilteringCardInterface) => {
+  // setIsAddAgentShown
+  const setIsAddAgentShown = useContext(SetIsAddAgentShownContext);
   // Filtering Types
   const [shownFilter, setShownFilter] = useState<
     "region" | "price" | "area" | "bedrooms" | ""
@@ -134,10 +136,13 @@ const FilteringCard = ({
               <Link to="/add-listing">
                 <FilledButtonCard>+ ლისტინგის დამატება</FilledButtonCard>
               </Link>
-
-              <Link to={"/add-agent"}>
+              <div
+                onClick={() => {
+                  setIsAddAgentShown(true);
+                }}
+              >
                 <NotFilledButtonCard>+ აგენტის დამატება</NotFilledButtonCard>
-              </Link>
+              </div>
             </div>
           </div>
           {/* Show Selected Filters */}

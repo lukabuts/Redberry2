@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import MainTitleCard from "../../components/TitleCards/MainTitleCard";
 import { useContext, useEffect, useState } from "react";
 import AgentFullNameCard from "../../components/AddAgentCards/AgentFullNameCard";
@@ -8,7 +7,7 @@ import { addAgentType } from "../../assets/typescript/types/addAgentType";
 import NotFilledButtonCard from "../../components/Buttons/NotFilledButtonCard";
 import FilledButtonCard from "../../components/Buttons/FilledButtonCard";
 import axios from "axios";
-import { TokenContext } from "../../App";
+import { SetIsAddAgentShownContext, TokenContext } from "../../App";
 import { base64ToFile } from "../../utils/imageUtils";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
 import PopUpWrapper from "../../components/PopUpWrapper/PopUpWrapper";
@@ -16,6 +15,10 @@ import PopUpWrapper from "../../components/PopUpWrapper/PopUpWrapper";
 const AddAgent = () => {
   // token
   const token = useContext(TokenContext);
+
+  // setIsAddAgentShown
+  const setIsAddAgentShown = useContext(SetIsAddAgentShownContext);
+
   // Saved inserted details
   const detailsFromLocalStorage = localStorage.getItem("addAgentDetails");
   const savedAgentDetails: addAgentType =
@@ -99,10 +102,9 @@ const AddAgent = () => {
   }, [insertedAgentDetails]);
 
   // Closing The dialog
-  const navigate = useNavigate();
   function exitAddAgentDialog() {
     if (!isAgentCreating) {
-      navigate("/");
+      setIsAddAgentShown(false);
       localStorage.removeItem("addAgentDetails");
       setInsertedAgentDetails(undefined);
     }
@@ -171,13 +173,14 @@ const AddAgent = () => {
           } else {
             console.error("Error uploading agent:", err.message);
           }
+        })
+        .finally(() => {
+          setIsAgentCreating(false);
+          exitAddAgentDialog();
         });
     } catch (error) {
       console.error("Error processing the image:", error);
     }
-
-    setIsAgentCreating(false);
-    exitAddAgentDialog();
   }
 
   return (

@@ -1,4 +1,3 @@
-import { Outlet } from "react-router";
 import RealEstateCard from "../../components/RealEstateCard/RealEstateCard";
 import FilteringCard from "../../components/FilteringCard/FilteringCard";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
@@ -111,7 +110,6 @@ const Home = () => {
           </span>
         </div>
       )}
-      <Outlet />
     </div>
   );
 };

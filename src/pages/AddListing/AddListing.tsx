@@ -316,7 +316,7 @@ const AddListing = () => {
           </div>
         </div>
 
-        <div>
+        <div className="w-1/2 pr-2.5">
           <SelectAgentCard
             selectedAgent={selectedAgent}
             setSelectedAgent={setSelectedAgent}
