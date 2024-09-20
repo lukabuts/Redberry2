@@ -9,6 +9,7 @@ import BedroomCard from "../filteringCards/BedroomCard";
 import { filtersType } from "../../assets/typescript/types/filtersType";
 import { RegionsContext } from "../../App";
 import ShowSelectedFiltersCard from "../filteringCards/ShowSelectedFiltersCard";
+import { FilteringCardInterface } from "../../assets/typescript/interfaces/filteringCardInterface";
 
 export const ShownFilterContext = React.createContext<
   "region" | "price" | "area" | "bedrooms" | ""
@@ -20,14 +21,11 @@ export const SetShownFilterContext = React.createContext<
 >(() => {});
 export const SaveSelectedFiltersContext = createContext<() => void>(() => {});
 
-const FilteringCard = () => {
-  // Saved selected Filters
-  const savedFilters = localStorage.getItem("filters");
-  const [selectedFilters, setSelectedFilters] = useState<filtersType | null>(
-    savedFilters && savedFilters !== "undefined"
-      ? JSON.parse(savedFilters)
-      : null
-  );
+const FilteringCard = ({
+  selectedFilters,
+  setSelectedFilters,
+  isAnyFilterSelected,
+}: FilteringCardInterface) => {
   // Filtering Types
   const [shownFilter, setShownFilter] = useState<
     "region" | "price" | "area" | "bedrooms" | ""
@@ -75,12 +73,12 @@ const FilteringCard = () => {
       minPrice: "",
       selectedRegions: [],
     };
-    if (shownFilter === "area") {
+    if (shownFilter === "area" && !isAreaError) {
       filters.maxArea = maxArea;
       filters.minArea = minArea;
-    } else if (shownFilter === "bedrooms") {
+    } else if (shownFilter === "bedrooms" && !isBedroomError) {
       filters.bedrooms = bedrooms;
-    } else if (shownFilter === "price") {
+    } else if (shownFilter === "price" && !isPriceError) {
       filters.maxPrice = maxPrice;
       filters.minPrice = minPrice;
     } else if (shownFilter === "region") {
@@ -143,52 +141,75 @@ const FilteringCard = () => {
             </div>
           </div>
           {/* Show Selected Filters */}
-
-          {selectedFilters &&
-            (selectedFilters.selectedRegions ||
-              selectedFilters.minPrice ||
-              selectedFilters.maxPrice ||
-              selectedFilters.minArea ||
-              selectedFilters.maxArea ||
-              selectedFilters.bedrooms) && (
-              <div className="mt-4 flex gap-2 overflow-x-auto">
-                {/* Show Regions */}
-                {regions
-                  .filter((region) =>
-                    selectedFilters.selectedRegions.includes(region.id)
-                  )
-                  .map((selectedRegion) => (
-                    <ShowSelectedFiltersCard key={selectedRegion.id}>
-                      {selectedRegion.name}
-                    </ShowSelectedFiltersCard>
-                  ))}
-                {selectedFilters.minPrice && selectedFilters.maxPrice && (
-                  <ShowSelectedFiltersCard>
-                    {selectedFilters.minPrice}₾ - {selectedFilters.maxPrice}₾
+          {selectedFilters && isAnyFilterSelected && (
+            <div className="mt-4 flex gap-2 overflow-x-auto">
+              {/* Show Regions */}
+              {regions
+                .filter((region) =>
+                  selectedFilters.selectedRegions.includes(region.id)
+                )
+                .map((selectedRegion) => (
+                  <ShowSelectedFiltersCard
+                    key={selectedRegion.id}
+                    onClick={() => {
+                      const filteredSelectedEstates = selectedFilters;
+                      filteredSelectedEstates.selectedRegions =
+                        filteredSelectedEstates.selectedRegions.filter(
+                          (region) => region !== selectedRegion.id
+                        );
+                      setSelectedFilters({ ...filteredSelectedEstates });
+                    }}
+                  >
+                    {selectedRegion.name}
                   </ShowSelectedFiltersCard>
-                )}
-                {selectedFilters.minArea && selectedFilters.maxArea && (
-                  <ShowSelectedFiltersCard>
-                    {selectedFilters.minArea}მ<sup>2</sup> -{" "}
-                    {selectedFilters.maxArea}მ<sup>2</sup>
-                  </ShowSelectedFiltersCard>
-                )}
-                {selectedFilters.bedrooms && (
-                  <ShowSelectedFiltersCard>
-                    {selectedFilters.bedrooms}
-                  </ShowSelectedFiltersCard>
-                )}
-                {/* Clear Filters */}
-                <button
-                  className="text-sm font-semibold ml-2"
+                ))}
+              {selectedFilters.minPrice && selectedFilters.maxPrice && (
+                <ShowSelectedFiltersCard
                   onClick={() => {
-                    setSelectedFilters(null);
+                    const filteredSelectedEstates = selectedFilters;
+                    filteredSelectedEstates.maxPrice = "";
+                    filteredSelectedEstates.minPrice = "";
+                    setSelectedFilters({ ...filteredSelectedEstates });
                   }}
                 >
-                  გასუფთავება
-                </button>
-              </div>
-            )}
+                  {selectedFilters.minPrice}₾ - {selectedFilters.maxPrice}₾
+                </ShowSelectedFiltersCard>
+              )}
+              {selectedFilters.minArea && selectedFilters.maxArea && (
+                <ShowSelectedFiltersCard
+                  onClick={() => {
+                    const filteredSelectedEstates = selectedFilters;
+                    filteredSelectedEstates.maxArea = "";
+                    filteredSelectedEstates.minArea = "";
+                    setSelectedFilters({ ...filteredSelectedEstates });
+                  }}
+                >
+                  {selectedFilters.minArea}მ<sup>2</sup> -{" "}
+                  {selectedFilters.maxArea}მ<sup>2</sup>
+                </ShowSelectedFiltersCard>
+              )}
+              {selectedFilters.bedrooms && (
+                <ShowSelectedFiltersCard
+                  onClick={() => {
+                    const filteredSelectedEstates = selectedFilters;
+                    filteredSelectedEstates.bedrooms = "";
+                    setSelectedFilters({ ...filteredSelectedEstates });
+                  }}
+                >
+                  {selectedFilters.bedrooms}
+                </ShowSelectedFiltersCard>
+              )}
+              {/* Clear Filters */}
+              <button
+                className="text-sm font-semibold ml-2"
+                onClick={() => {
+                  setSelectedFilters(null);
+                }}
+              >
+                გასუფთავება
+              </button>
+            </div>
+          )}
         </SaveSelectedFiltersContext.Provider>
       </SetShownFilterContext.Provider>
     </ShownFilterContext.Provider>
