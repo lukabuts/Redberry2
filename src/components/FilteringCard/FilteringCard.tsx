@@ -35,6 +35,7 @@ const FilteringCard = () => {
   // Regions
   const regions = useContext(RegionsContext);
   // Selected Regions
+
   const [selectedRegions, setSelectedRegions] = useState<number[]>(() => {
     const localStorageRegions = localStorage.getItem("enteredRegions");
     return localStorageRegions ? JSON.parse(localStorageRegions) : [];
@@ -95,7 +96,6 @@ const FilteringCard = () => {
     // Set Selected Filters to LocalStorage
     localStorage.setItem("filters", JSON.stringify(selectedFilters));
   }, [selectedFilters]);
-
   return (
     <ShownFilterContext.Provider value={shownFilter}>
       <SetShownFilterContext.Provider value={setShownFilter}>
