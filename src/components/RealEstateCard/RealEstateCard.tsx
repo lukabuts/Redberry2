@@ -16,7 +16,9 @@ const RealEstateCard = ({ realEstate }: { realEstate: realEstateType }) => {
       </div>
       <div className="border border-lightGray border-t-0 rounded-b-xl p-5">
         <div>
-          <h2 className="font-bold text-2xl">{realEstate.price} ₾</h2>
+          <h2 className="font-bold text-2xl">
+            {realEstate.price.toLocaleString().replace(/,/g, " ")} ₾
+          </h2>
         </div>
         <div className="flex items-center gap-1 mb-4 mt-1.5">
           <img

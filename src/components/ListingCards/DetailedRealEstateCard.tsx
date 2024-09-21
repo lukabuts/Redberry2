@@ -45,7 +45,9 @@ const DetailedRealEstateCard = ({
             <div className="w-full flex-1 max-w-lg">
               {/* Price */}
               <div className="mb-6">
-                <h2 className="font-bold text-4xl">{realEstate.price} ₾</h2>
+                <h2 className="font-bold text-4xl">
+                  {realEstate.price.toLocaleString().replace(/,/g, ", ")} ₾
+                </h2>
               </div>
               <div className="flex flex-col gap-4 w-max">
                 {/* Location */}
