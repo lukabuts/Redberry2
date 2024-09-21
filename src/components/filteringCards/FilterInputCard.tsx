@@ -11,9 +11,9 @@ const FilterInputCard = ({
   return (
     <div
       className={`relative flex-1 border rounded-md overflow-hidden ${
-        isError && value.trim()
+        isError && value.length > 0
           ? "border-errColor"
-          : value.trim()
+          : value.length > 0
             ? "border-successColor"
             : "border-slateGray"
       }`}

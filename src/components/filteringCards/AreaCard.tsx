@@ -52,7 +52,7 @@ const AreaCard = ({
                 isError={isAreaError}
               />
             </div>
-            {isAreaError && (!!maxArea.trim() || !!minArea.trim()) && (
+            {isAreaError && (maxArea.length > 0 || minArea.length > 0) && (
               <span className="text-xs text-errColor">
                 ჩაწერე ვალიდური მონაცემები
               </span>

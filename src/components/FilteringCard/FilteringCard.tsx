@@ -79,13 +79,19 @@ const FilteringCard = ({
     if (shownFilter === "area" && !isAreaError) {
       filters.maxArea = maxArea;
       filters.minArea = minArea;
+      setMaxArea("");
+      setMinArea("");
     } else if (shownFilter === "bedrooms" && !isBedroomError) {
       filters.bedrooms = bedrooms;
+      setBedrooms("");
     } else if (shownFilter === "price" && !isPriceError) {
       filters.maxPrice = maxPrice;
       filters.minPrice = minPrice;
+      setMaxPrice("");
+      setMinPrice("");
     } else if (shownFilter === "region") {
       filters.selectedRegions = selectedRegions;
+      setSelectedRegions([]);
     }
     setSelectedFilters({ ...filters });
 
@@ -178,7 +184,7 @@ const FilteringCard = ({
                     {selectedRegion.name}
                   </ShowSelectedFiltersCard>
                 ))}
-              {selectedFilters.minPrice && selectedFilters.maxPrice && (
+              {(selectedFilters.minPrice || selectedFilters.maxPrice) && (
                 <ShowSelectedFiltersCard
                   onClick={() => {
                     const filteredSelectedEstates = selectedFilters;
@@ -187,10 +193,11 @@ const FilteringCard = ({
                     setSelectedFilters({ ...filteredSelectedEstates });
                   }}
                 >
-                  {selectedFilters.minPrice}₾ - {selectedFilters.maxPrice}₾
+                  {selectedFilters.minPrice ? selectedFilters.minPrice : "0"}₾ -{" "}
+                  {selectedFilters.maxPrice}₾
                 </ShowSelectedFiltersCard>
               )}
-              {selectedFilters.minArea && selectedFilters.maxArea && (
+              {(selectedFilters.minArea || selectedFilters.maxArea) && (
                 <ShowSelectedFiltersCard
                   onClick={() => {
                     const filteredSelectedEstates = selectedFilters;
@@ -199,8 +206,8 @@ const FilteringCard = ({
                     setSelectedFilters({ ...filteredSelectedEstates });
                   }}
                 >
-                  {selectedFilters.minArea}მ<sup>2</sup> -{" "}
-                  {selectedFilters.maxArea}მ<sup>2</sup>
+                  {selectedFilters.minArea ? selectedFilters.minArea : "0"}მ
+                  <sup>2</sup> - {selectedFilters.maxArea}მ<sup>2</sup>
                 </ShowSelectedFiltersCard>
               )}
               {selectedFilters.bedrooms && (

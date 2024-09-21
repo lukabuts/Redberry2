@@ -38,6 +38,15 @@ const LocationCard = ({
   // isSelectCityDropdownShown
   const [isSelectCityDropdownShown, setIsSelectCityDropdownShown] =
     useState(false);
+  // FilteredCities
+  const [filteredCities, setFilteredCities] = useState<citiesType[]>([]);
+
+  // Set Selected Cities
+  useEffect(() => {
+    const filtered = cities.filter((city) => city.region_id === selectedRegion);
+    setFilteredCities(filtered);
+    setSelectedCity(0);
+  }, [regions, cities, selectedRegion]);
 
   // Get Cities
   useEffect(() => {
@@ -180,23 +189,21 @@ const LocationCard = ({
               >
                 {!!selectedRegion &&
                   !invalidRegion &&
-                  cities
-                    .filter((city) => city.region_id === selectedRegion)
-                    .map((filteredCity) => (
-                      <DropDownOptionCard
-                        key={filteredCity.id}
-                        value={filteredCity}
-                        invalidValue={invalidCity}
-                        setInvalidValue={setInvalidCity}
-                        selectedValue={selectedCity}
-                        setSelectedValue={setSelectedCity}
-                        setIsSelectValueDropdownShown={
-                          setIsSelectCityDropdownShown
-                        }
-                      >
-                        {filteredCity.name}
-                      </DropDownOptionCard>
-                    ))}
+                  filteredCities.map((filteredCity) => (
+                    <DropDownOptionCard
+                      key={filteredCity.id}
+                      value={filteredCity}
+                      invalidValue={invalidCity}
+                      setInvalidValue={setInvalidCity}
+                      selectedValue={selectedCity}
+                      setSelectedValue={setSelectedCity}
+                      setIsSelectValueDropdownShown={
+                        setIsSelectCityDropdownShown
+                      }
+                    >
+                      {filteredCity.name}
+                    </DropDownOptionCard>
+                  ))}
               </DropDownOptionCardWrapper>
             </div>
           </div>

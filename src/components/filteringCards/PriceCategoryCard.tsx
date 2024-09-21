@@ -55,7 +55,7 @@ const PriceCategoryCard = ({
                 isError={isPriceError}
               />
             </div>
-            {isPriceError && (!!maxPrice.trim() || !!minPrice.trim()) && (
+            {isPriceError && (maxPrice.length > 0 || minPrice.length > 0) && (
               <span className="text-xs text-errColor">
                 ჩაწერე ვალიდური მონაცემები
               </span>

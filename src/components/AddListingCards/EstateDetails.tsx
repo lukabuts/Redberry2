@@ -3,7 +3,6 @@ import EstateDetailsInterface from "../../assets/typescript/interfaces/estateDet
 import { useEffect } from "react";
 import LabelCard from "../TitleCards/LabelCard";
 import { validateNumericValue } from "../../utils/validateNumericValues";
-import { validateString } from "../../utils/validateStrings";
 
 const EstateDetails = ({
   price,
@@ -25,7 +24,11 @@ const EstateDetails = ({
 }: EstateDetailsInterface) => {
   // Handle Description error
   useEffect(() => {
-    validateString(description, setInvalidDescription, 5);
+    if (description.trim().split(" ").length < 5) {
+      setInvalidDescription(true);
+    } else {
+      setInvalidDescription(false);
+    }
   }, [description]);
 
   // Handle Invalid Price error
