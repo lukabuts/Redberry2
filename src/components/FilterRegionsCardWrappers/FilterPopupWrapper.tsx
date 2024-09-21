@@ -54,7 +54,7 @@ const FilterPopupWrapper = ({
   return (
     <div
       ref={wrapperRef}
-      className="absolute flex flex-col left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10"
+      className="absolute flex flex-col left-0 mt-5 border border-lightGray bg-white p-6 rounded-lg z-10 shadow-md"
     >
       {isRegionsInfoLoading ? (
         <span>Loading...</span>

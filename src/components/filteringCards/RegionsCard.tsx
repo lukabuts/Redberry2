@@ -53,7 +53,7 @@ const RegionsCard = ({
                     name="region"
                     value={region.name}
                     id={String(region.id)}
-                    className=" w-5 h-5 border border-lightGray cursor-pointer accent-green-500"
+                    className="w-5 h-5 bg-softGray rounded-sm accent-successColor"
                     onChange={(e) => {
                       handleChange(e, region.id);
                     }}

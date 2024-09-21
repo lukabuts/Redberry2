@@ -19,7 +19,7 @@ export const SetIsAddAgentShownContext = React.createContext<
 >(() => {});
 
 function App() {
-  const token = "9d0865a9-c373-437a-b5a2-8ae953972b5c";
+  const token = "9d105f7a-1bb6-4d2a-aafb-74f8f9ea17c5";
   // Regions
   const [isRegionsInfoLoading, setIsRegionsInfoLoading] = useState(false);
   const [regions, setRegions] = useState<regionsType[]>([]);
