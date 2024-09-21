@@ -54,7 +54,7 @@ const ContactInfoCard = ({
           <input
             required
             type="email"
-            className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+            className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
               invalidAgentEmail && agentEmail.trim()
                 ? "border-errColor"
                 : agentEmail.trim()
@@ -82,7 +82,7 @@ const ContactInfoCard = ({
             type="number"
             min={0}
             maxLength={9}
-            className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+            className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
               (invalidAgentMobileNumber || !numberStartsWithFive) &&
               agentMobileNumber.trim()
                 ? "border-errColor"

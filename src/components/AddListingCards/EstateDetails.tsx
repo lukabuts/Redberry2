@@ -65,12 +65,12 @@ const EstateDetails = ({
                 required
                 min={0}
                 type="number"
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+                className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
                   invalidPrice && price.trim()
                     ? "border-errColor"
                     : price.trim()
-                    ? "border-successColor"
-                    : "border-slateGray"
+                      ? "border-successColor"
+                      : "border-slateGray"
                 }`}
                 id="price"
                 onChange={(e) => {
@@ -93,12 +93,12 @@ const EstateDetails = ({
                 min={0}
                 required
                 type="number"
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+                className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
                   invalidArea && area.trim()
                     ? "border-errColor"
                     : area.trim()
-                    ? "border-successColor"
-                    : "border-slateGray"
+                      ? "border-successColor"
+                      : "border-slateGray"
                 }`}
                 id="area"
                 onChange={(e) => {
@@ -124,12 +124,12 @@ const EstateDetails = ({
               min={0}
               required
               type="number"
-              className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+              className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
                 invalidBedrooms && bedrooms.trim()
                   ? "border-errColor"
                   : bedrooms.trim()
-                  ? "border-successColor"
-                  : "border-slateGray"
+                    ? "border-successColor"
+                    : "border-slateGray"
               }`}
               id="bedroomsCount"
               onChange={(e) => {
@@ -149,12 +149,12 @@ const EstateDetails = ({
           <LabelCard HTMLfor="description">აღწერა *</LabelCard>
           <textarea
             id="description"
-            className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none h-32 ${
+            className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none h-32 ${
               invalidDescription && description.trim()
                 ? "border-errColor"
                 : description.trim()
-                ? "border-successColor"
-                : "border-slateGray"
+                  ? "border-successColor"
+                  : "border-slateGray"
             }`}
             onChange={(e) => {
               setDescription(e.target.value);

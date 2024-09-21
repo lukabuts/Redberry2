@@ -19,8 +19,8 @@ const ValidationCard = ({
           isError
             ? "text-errColor"
             : valueEntered
-            ? "text-successColor"
-            : "text-deepBlue"
+              ? "text-successColor"
+              : "text-deepBlue"
         }`}
       >
         {validationMsg}

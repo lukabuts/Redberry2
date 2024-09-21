@@ -7,6 +7,8 @@ import ValidationCard from "./ValidationCard";
 import LabelCard from "../TitleCards/LabelCard";
 import { validateNumericValue } from "../../utils/validateNumericValues";
 import { validateString } from "../../utils/validateStrings";
+import DropDownOptionCard from "./DropDownOptionCard";
+import DropDownOptionCardWrapper from "./DropDownOptionCardWrapper";
 
 const LocationCard = ({
   selectedRegion,
@@ -30,6 +32,12 @@ const LocationCard = ({
   const token = useContext(TokenContext);
 
   const [cities, setCities] = useState<citiesType[]>([]);
+  // isSelectRegionDropdownShown
+  const [isSelectRegionDropdownShown, setIsSelectRegionDropdownShown] =
+    useState(false);
+  // isSelectCityDropdownShown
+  const [isSelectCityDropdownShown, setIsSelectCityDropdownShown] =
+    useState(false);
 
   // Get Cities
   useEffect(() => {
@@ -73,12 +81,12 @@ const LocationCard = ({
                 required
                 type="text"
                 min={2}
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+                className={`border px-1 py-2.5 text-sm rounded-md focus:outline-none ${
                   invalidAddress && address.trim()
                     ? "border-errColor"
                     : address.trim()
-                    ? "border-successColor"
-                    : "border-slateGray"
+                      ? "border-successColor"
+                      : "border-slateGray"
                 }`}
                 id="address"
                 onChange={(e) => {
@@ -101,12 +109,12 @@ const LocationCard = ({
                 required
                 min={0}
                 type="number"
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+                className={`border px-1 py-2.5 text-sm rounded-md focus:outline-none ${
                   invalidZipCode && zipCode.trim()
                     ? "border-errColor"
                     : zipCode.trim()
-                    ? "border-successColor"
-                    : "border-slateGray"
+                      ? "border-successColor"
+                      : "border-slateGray"
                 }`}
                 id="zipCode"
                 onChange={(e) => {
@@ -127,64 +135,69 @@ const LocationCard = ({
           {/* Region */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <LabelCard HTMLfor="region">რეგიონი *</LabelCard>
-              <select
-                name="region"
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer ${
-                  invalidRegion
-                    ? "border-errColor"
-                    : selectedRegion
-                    ? "border-successColor"
-                    : "border-slateGray"
-                }`}
-                onChange={(e) => {
-                  setSelectedRegion(Number(e.target.value));
-                  setInvalidRegion(false);
-                }}
-                value={selectedRegion}
-                required
-                id="region"
+              <h5 className="text-sm font-semibold">რეგიონი *</h5>
+              <DropDownOptionCardWrapper
+                invalidValue={invalidRegion}
+                selectedValue={selectedRegion}
+                setIsSelectValueDropdownShown={setIsSelectRegionDropdownShown}
+                isSelectValueDropdownShown={isSelectRegionDropdownShown}
+                selectedValueName={
+                  regions.find((region) => region.id === selectedRegion)?.name
+                }
+                showDropdown={true}
               >
-                <option value="0"></option>
                 {regions.map((region) => (
-                  <option key={region.id} value={region.id}>
+                  <DropDownOptionCard
+                    key={region.id}
+                    value={region}
+                    invalidValue={invalidRegion}
+                    setInvalidValue={setInvalidRegion}
+                    selectedValue={selectedRegion}
+                    setSelectedValue={setSelectedRegion}
+                    setIsSelectValueDropdownShown={
+                      setIsSelectRegionDropdownShown
+                    }
+                  >
                     {region.name}
-                  </option>
+                  </DropDownOptionCard>
                 ))}
-              </select>
+              </DropDownOptionCardWrapper>
             </div>
           </div>
           {/* City */}
           <div className="flex-1">
             <div className="flex flex-col gap-1">
-              <LabelCard HTMLfor="city">ქალაქი *</LabelCard>
-              <select
-                name="city"
-                className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none bg-transparent cursor-pointer disabled:cursor-default ${
-                  invalidCity
-                    ? "border-errColor"
-                    : selectedCity
-                    ? "border-successColor"
-                    : "border-slateGray"
-                }`}
-                onChange={(e) => {
-                  setSelectedCity(Number(e.target.value));
-                  setInvalidCity(false);
-                }}
-                value={selectedCity}
-                disabled={!selectedRegion}
-                required
-                id="city"
+              <h5 className="text-sm font-semibold">ქალაქი *</h5>
+              <DropDownOptionCardWrapper
+                invalidValue={invalidCity}
+                selectedValue={selectedCity}
+                setIsSelectValueDropdownShown={setIsSelectCityDropdownShown}
+                isSelectValueDropdownShown={isSelectCityDropdownShown}
+                selectedValueName={
+                  cities.find((city) => city.id === selectedCity)?.name
+                }
+                showDropdown={!!selectedRegion && !invalidRegion}
               >
-                <option value="0"></option>
-                {cities
-                  .filter((city) => city.region_id === selectedRegion)
-                  .map((filteredCity) => (
-                    <option key={filteredCity.id} value={filteredCity.id}>
-                      {filteredCity.name}
-                    </option>
-                  ))}
-              </select>
+                {!!selectedRegion &&
+                  !invalidRegion &&
+                  cities
+                    .filter((city) => city.region_id === selectedRegion)
+                    .map((filteredCity) => (
+                      <DropDownOptionCard
+                        key={filteredCity.id}
+                        value={filteredCity}
+                        invalidValue={invalidCity}
+                        setInvalidValue={setInvalidCity}
+                        selectedValue={selectedCity}
+                        setSelectedValue={setSelectedCity}
+                        setIsSelectValueDropdownShown={
+                          setIsSelectCityDropdownShown
+                        }
+                      >
+                        {filteredCity.name}
+                      </DropDownOptionCard>
+                    ))}
+              </DropDownOptionCardWrapper>
             </div>
           </div>
         </div>

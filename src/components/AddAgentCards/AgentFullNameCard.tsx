@@ -32,12 +32,12 @@ const AgentFullNameCard = ({
           <input
             required
             type="text"
-            className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+            className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
               invalidAgentName && agentName.trim()
                 ? "border-errColor"
                 : agentName.trim()
-                ? "border-successColor"
-                : "border-slateGray"
+                  ? "border-successColor"
+                  : "border-slateGray"
             }`}
             id="agentName"
             onChange={(e) => {
@@ -58,12 +58,12 @@ const AgentFullNameCard = ({
           <input
             required
             type="text"
-            className={`border px-1 py-1.5 text-sm rounded-md focus:outline-none ${
+            className={`border px-2 py-2.5 text-sm rounded-md focus:outline-none ${
               invalidAgentSurname && agentSurname.trim()
                 ? "border-errColor"
                 : agentSurname.trim()
-                ? "border-successColor"
-                : "border-slateGray"
+                  ? "border-successColor"
+                  : "border-slateGray"
             }`}
             id="agentSurname"
             onChange={(e) => {
