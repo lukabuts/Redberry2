@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import AddAgent from "./pages/AddAgent/AddAgent";
 import Header from "./components/Header/Header";
 import Listing from "./pages/Listing/Listing";
 import AddListing from "./pages/AddListing/AddListing";
@@ -9,6 +8,8 @@ import regionsType from "./assets/typescript/types/regions";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFound from "./pages/NotFound/NotFound";
+import { HelmetProvider } from "react-helmet-async";
+import AddAgentCard from "./components/AddAgentCard/AddAgentCard";
 
 export const TokenContext = React.createContext("");
 export const IsRegionsInfoLoadingContext = React.createContext<boolean>(false);
@@ -61,13 +62,15 @@ function App() {
           <RegionsContext.Provider value={regions}>
             <IsAddAgentShownContext.Provider value={isAddAgentShown}>
               <SetIsAddAgentShownContext.Provider value={setIsAddAgentShown}>
-                {isAddAgentShown && <AddAgent />}
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/real-estates/:id" element={<Listing />} />
-                  <Route path="/add-listing/" element={<AddListing />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                {isAddAgentShown && <AddAgentCard />}
+                <HelmetProvider>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/real-estates/:id" element={<Listing />} />
+                    <Route path="/add-listing/" element={<AddListing />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </HelmetProvider>
               </SetIsAddAgentShownContext.Provider>
             </IsAddAgentShownContext.Provider>
           </RegionsContext.Provider>

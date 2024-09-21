@@ -10,6 +10,7 @@ import SimilarRealEstatesCard from "../../components/ListingCards/SimilarRealEst
 import { getRealEstates } from "../../utils/getRealEstates";
 import { TokenContext } from "../../App";
 import ArrowIcon from "../../components/Icons/ArrowIcon";
+import { Helmet } from "react-helmet-async";
 
 const Listing = () => {
   const location = useLocation();
@@ -82,6 +83,11 @@ const Listing = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {`${realEstate?.description} - ${realEstate?.agent.name}`}
+        </title>
+      </Helmet>
       {/* Go Back  */}
       <button className="mb-8 ml-36 mt-16">
         <Link to="/">

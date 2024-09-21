@@ -7,6 +7,7 @@ import { TokenContext } from "../../App";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
 import { getRealEstates } from "../../utils/getRealEstates";
 import { filtersType } from "../../assets/typescript/types/filtersType";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   const token = useContext(TokenContext);
@@ -78,39 +79,44 @@ const Home = () => {
   }, [token]);
 
   return (
-    <div className="mx-36 mt-16 mb-14">
-      {/* Filtering Card */}
-      <section className="mb-8">
-        <FilteringCard
-          selectedFilters={selectedFilters}
-          setSelectedFilters={setSelectedFilters}
-          isAnyFilterSelected={isAnyFilterSelected}
-        />
-      </section>
-      {/* Showing Estates */}
-      {isRealEstatesLoading ? (
-        <LoadingCard />
-      ) : realEstatesError ? (
-        <span className="text-errColor">Error: {realEstatesError}</span>
-      ) : filteredEstates.length > 0 ? (
-        <section className="grid grid-cols-autoFillEstateCard justify-around gap-5">
-          {filteredEstates.map((realEstate) => (
-            <Link to={`/real-estates/${realEstate.id}`} key={realEstate.id}>
-              <RealEstateCard realEstate={realEstate} />
-            </Link>
-          ))}
+    <>
+      <Helmet>
+        <title>Redberry - Luka Butskhrikidze</title>
+      </Helmet>
+      <div className="mx-36 mt-16 mb-14">
+        {/* Filtering Card */}
+        <section className="mb-8">
+          <FilteringCard
+            selectedFilters={selectedFilters}
+            setSelectedFilters={setSelectedFilters}
+            isAnyFilterSelected={isAnyFilterSelected}
+          />
         </section>
-      ) : (
-        // Show Message if either there is no real estate or filtered estate
-        <div className=" mt-10">
-          <span className="text-deepBlue text-opacity-80 text-lg">
-            {realEstates.length === 0
-              ? "განცხადებები ჯერ არ დაგიმატებიათ"
-              : "აღნიშნული მონაცემებით განცხადება არ იძებნება"}
-          </span>
-        </div>
-      )}
-    </div>
+        {/* Showing Estates */}
+        {isRealEstatesLoading ? (
+          <LoadingCard />
+        ) : realEstatesError ? (
+          <span className="text-errColor">Error: {realEstatesError}</span>
+        ) : filteredEstates.length > 0 ? (
+          <section className="grid grid-cols-autoFillEstateCard justify-around gap-5">
+            {filteredEstates.map((realEstate) => (
+              <Link to={`/real-estates/${realEstate.id}`} key={realEstate.id}>
+                <RealEstateCard realEstate={realEstate} />
+              </Link>
+            ))}
+          </section>
+        ) : (
+          // Show Message if either there is no real estate or filtered estate
+          <div className=" mt-10">
+            <span className="text-deepBlue text-opacity-80 text-lg">
+              {realEstates.length === 0
+                ? "განცხადებები ჯერ არ დაგიმატებიათ"
+                : "აღნიშნული მონაცემებით განცხადება არ იძებნება"}
+            </span>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

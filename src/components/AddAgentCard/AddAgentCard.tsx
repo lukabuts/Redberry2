@@ -12,7 +12,7 @@ import { base64ToFile } from "../../utils/imageUtils";
 import LoadingCard from "../../components/LoadingCard.tsx/LoadingCard";
 import PopUpWrapper from "../../components/PopUpWrapper/PopUpWrapper";
 
-const AddAgent = () => {
+const AddAgentCard = () => {
   // token
   const token = useContext(TokenContext);
 
@@ -256,4 +256,4 @@ const AddAgent = () => {
   );
 };
 
-export default AddAgent;
+export default AddAgentCard;

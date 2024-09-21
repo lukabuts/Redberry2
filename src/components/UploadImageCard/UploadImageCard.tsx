@@ -66,8 +66,8 @@ const UploadImageCard = ({
           imageError
             ? "border-errColor"
             : image
-            ? "border-successColor"
-            : "border-slateGray "
+              ? "border-successColor"
+              : "border-slateGray "
         }`}
       >
         <input

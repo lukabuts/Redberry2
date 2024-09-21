@@ -13,6 +13,7 @@ import { base64ToFile } from "../../utils/imageUtils";
 import axios from "axios";
 import { TokenContext } from "../../App";
 import { AddRealEstateType } from "../../assets/typescript/types/AddRealEstateType";
+import { Helmet } from "react-helmet-async";
 
 const AddListing = () => {
   // Token
@@ -156,7 +157,10 @@ const AddListing = () => {
       invalidZipCode ||
       !imageName ||
       imageError ||
-      !image
+      !image ||
+      !selectedAgent ||
+      !selectedRegion ||
+      !selectedCity
     ) {
       setIsEverithingValidated(false);
     } else {
@@ -179,22 +183,16 @@ const AddListing = () => {
 
   // Creating new Listing
   function createNewListing() {
-    if (
-      selectedAgent <= 0 ||
-      selectedRegion <= 0 ||
-      selectedCity <= 0 ||
-      !isEverithingValidated
-    ) {
-      if (selectedAgent <= 0) {
+    if (!isEverithingValidated) {
+      if (!selectedAgent) {
         setInvalidAgent(true);
       }
-      if (selectedRegion <= 0) {
+      if (!selectedRegion) {
         setInvalidRegion(true);
       }
-      if (selectedCity <= 0) {
+      if (!selectedCity) {
         setInvalidCity(true);
       }
-      setIsEverithingValidated(false);
       return;
     }
     setIsListingCreating(true);
@@ -247,6 +245,9 @@ const AddListing = () => {
 
   return (
     <>
+      <Helmet>
+        <title>დაამატე ლისტინგი</title>
+      </Helmet>
       <form
         className="py-14 max-w-4xl mx-auto w-full flex flex-col gap-20"
         onSubmit={(e) => {
