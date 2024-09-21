@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import regionsType from "./assets/typescript/types/regions";
 import axios from "axios";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import NotFound from "./pages/NotFound/NotFound";
 
 export const TokenContext = React.createContext("");
 export const IsRegionsInfoLoadingContext = React.createContext<boolean>(false);
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/real-estates/:id" element={<Listing />} />
                   <Route path="/add-listing/" element={<AddListing />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </SetIsAddAgentShownContext.Provider>
             </IsAddAgentShownContext.Provider>

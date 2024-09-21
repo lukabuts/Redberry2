@@ -42,8 +42,9 @@ const SelectAgentCard = ({
   return (
     <>
       <div className="mb-5">
-        <h2 className=" text-deepBlue text-base font-semibold">აგენტი *</h2>
+        <h2 className=" text-deepBlue text-base font-semibold">აგენტი</h2>
       </div>
+      <h5 className="text-sm font-semibold mb-1">აირჩიე</h5>
       {/* Show Selected Agent Full Name */}
       <DropDownOptionCardWrapper
         invalidValue={invalidAgent}

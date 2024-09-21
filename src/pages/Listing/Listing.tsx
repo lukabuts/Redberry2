@@ -98,7 +98,11 @@ const Listing = () => {
           />
         ) : (
           !isRealEstateLoading && (
-            <span className="text-errColor">უძრავი ქონება ვერ მოიძებნა</span>
+            <div className="text-center">
+              <span className="text-errColor text-xl">
+                უძრავი ქონება ვერ მოიძებნა
+              </span>
+            </div>
           )
         )}
         {/* Similar Real Estates */}
