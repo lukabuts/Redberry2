@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { detailedRealEstateType } from "../../assets/typescript/types/detailedRealEstateType";
-import backIcon from "../../assets/images/IconRight.svg";
 import { Link } from "react-router-dom";
 import { realEstateType } from "../../assets/typescript/types/realEstateType";
 import DetailedRealEstateCard from "../../components/ListingCards/DetailedRealEstateCard";
@@ -10,6 +9,7 @@ import DetailedRealEstatePopUp from "../../components/ListingCards/DetailedRealE
 import SimilarRealEstatesCard from "../../components/ListingCards/SimilarRealEstatesCard";
 import { getRealEstates } from "../../utils/getRealEstates";
 import { TokenContext } from "../../App";
+import ArrowIcon from "../../components/Icons/ArrowIcon";
 
 const Listing = () => {
   const location = useLocation();
@@ -82,38 +82,39 @@ const Listing = () => {
 
   return (
     <>
-      <div className="mx-36 mt-16">
-        {/* Go Back  */}
-        <button className="mb-8">
-          <Link to="/">
-            <img src={backIcon} alt="Go Back" />
-          </Link>
-        </button>
-        {realEstate ? (
-          <DetailedRealEstateCard
-            realEstate={realEstate}
-            realEstateError={realEstateError}
-            isRealEstateLoading={isRealEstateLoading}
-            setShowPopUp={setShowPopUp}
-          />
-        ) : (
-          !isRealEstateLoading && (
-            <div className="text-center">
-              <span className="text-errColor text-xl">
-                უძრავი ქონება ვერ მოიძებნა
-              </span>
-            </div>
-          )
-        )}
-        {/* Similar Real Estates */}
-        {!realEstateError && realEstates && !isRealEstateLoading && (
+      {/* Go Back  */}
+      <button className="mb-8 ml-36 mt-16">
+        <Link to="/">
+          <ArrowIcon />
+        </Link>
+      </button>
+      {realEstate ? (
+        <DetailedRealEstateCard
+          realEstate={realEstate}
+          realEstateError={realEstateError}
+          isRealEstateLoading={isRealEstateLoading}
+          setShowPopUp={setShowPopUp}
+        />
+      ) : (
+        !isRealEstateLoading && (
+          <div className="text-center">
+            <span className="text-errColor text-xl">
+              უძრავი ქონება ვერ მოიძებნა
+            </span>
+          </div>
+        )
+      )}
+      {/* Similar Real Estates */}
+      {!realEstateError && realEstates && !isRealEstateLoading && (
+        <div className="relative">
           <SimilarRealEstatesCard
+            setSimilarRealEstates={setSimilarRealEstates}
             similarRealEstates={similarRealEstates}
             realEstatesError={realEstatesError}
             isRealEstatesLoading={isRealEstatesLoading}
           />
-        )}
-      </div>
+        </div>
+      )}
       {/* Show Notification Before Deleting Real Estate */}
       {showPopUp && <DetailedRealEstatePopUp setShowPopUp={setShowPopUp} />}
     </>

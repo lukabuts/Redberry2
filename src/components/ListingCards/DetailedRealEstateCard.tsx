@@ -14,7 +14,7 @@ const DetailedRealEstateCard = ({
   setShowPopUp,
 }: RealEstateCardInterface) => {
   return (
-    <div>
+    <div className="mx-36">
       {/* Real Estate */}
 
       {isRealEstateLoading ? (
@@ -23,11 +23,11 @@ const DetailedRealEstateCard = ({
         <span className="text-errColor"> Error: {realEstateError}</span>
       ) : (
         // Display Real Estate Info
-        <div>
+        <>
           {/*  Real Estate Details */}
           <div className="flex  gap-16 items-center">
             {/* Real Estate Image */}
-            <div className="relative overflow-hidden flex justify-center items-center rounded-t-xl w-detailedEstateImgWidth h-detailedEstateHeight flex-1">
+            <div className="relative overflow-hidden flex justify-center items-center rounded-t-xl max-w-detailedEstateImgWidth h-detailedEstateHeight flex-1">
               <img
                 loading="lazy"
                 src={realEstate.image}
@@ -41,7 +41,8 @@ const DetailedRealEstateCard = ({
                 </span>
               </div>
             </div>
-            <div className="w-full flex-1">
+            {/* Real Estate Info */}
+            <div className="w-full flex-1 max-w-lg">
               {/* Price */}
               <div className="mb-6">
                 <h2 className="font-bold text-4xl">{realEstate.price} ₾</h2>
@@ -170,7 +171,7 @@ const DetailedRealEstateCard = ({
                 .join("/")}
             </span>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

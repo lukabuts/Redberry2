@@ -22,9 +22,11 @@ export default {
         autoFillEstateCard: "repeat(auto-fill, 24rem)",
       },
       width: {
-        detailedEstateImgWidth: "52.5rem",
         agentAvatarWidth: "4.5rem",
         estateCardWidth: "24rem",
+      },
+      maxWidth: {
+        detailedEstateImgWidth: "52.5rem",
       },
       height: {
         detailedEstateHeight: "42rem",
