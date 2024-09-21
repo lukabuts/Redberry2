@@ -3,7 +3,7 @@ import FilledButtonCard from "../../components/Buttons/FilledButtonCard";
 
 const NotFound = () => {
   return (
-    <div className="absolute top-0 flex flex-col items-center justify-center w-full h-full gap-5">
+    <div className="flex flex-col items-center justify-center gap-5 mt-20">
       <h1 className="text-4xl">გვერდი ვერ მოიძებნა</h1>
       <Link to="/">
         <FilledButtonCard>დამაბრუნე მთავარ გვერდზე</FilledButtonCard>

@@ -5,14 +5,13 @@ const PopUpWrapper = ({
   exitDialog,
 }: {
   children: React.ReactNode;
-  exitDialog: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void; // Better typing
+  exitDialog: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => {
   return (
     <div
       className="fixed top-0 left-0 w-full h-full z-50 bg-deepBlue/35 backdrop-blur-sm"
-      onClick={exitDialog} // Click handler passes event
+      onClick={exitDialog}
     >
-      {" "}
       <div className="relative w-full h-full flex items-center justify-center">
         {children}
       </div>

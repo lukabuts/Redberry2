@@ -24,4 +24,11 @@
   .removeDefaultInputStyles {
     -moz-appearance: textfield;
   }
+
+  .not-filled-button .add-agent-div svg path {
+    fill: theme("colors.flameRed");
+  }
+  .not-filled-button:hover .add-agent-div svg path {
+    fill: #fff;
+  }
 }

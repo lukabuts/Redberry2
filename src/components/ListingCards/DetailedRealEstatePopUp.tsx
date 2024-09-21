@@ -48,16 +48,16 @@ const DetailedRealEstatePopUp = ({
       <div className="flex gap-8 flex-col bg-white px-28 py-16 rounded-lg relative">
         <span className="text-center">გსურთ წაშალოთ ლისტინგი?</span>
         <div className="flex gap-4">
-          <div
+          <NotFilledButtonCard
             onClick={() => {
               setShowPopUp(false);
             }}
           >
-            <NotFilledButtonCard>გაუქმება</NotFilledButtonCard>
-          </div>
-          <div onClick={deleteRealEstate}>
-            <FilledButtonCard>დადასტურება</FilledButtonCard>
-          </div>
+            გაუქმება
+          </NotFilledButtonCard>
+          <FilledButtonCard onClick={deleteRealEstate}>
+            დადასტურება
+          </FilledButtonCard>
         </div>
         <button className="absolute top-5 right-5 p-1">
           <img loading="lazy" src={exitIcon} alt="Exit" className="w-5 h-5" />

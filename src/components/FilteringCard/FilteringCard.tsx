@@ -10,6 +10,7 @@ import { filtersType } from "../../assets/typescript/types/filtersType";
 import { RegionsContext, SetIsAddAgentShownContext } from "../../App";
 import ShowSelectedFiltersCard from "../filteringCards/ShowSelectedFiltersCard";
 import { FilteringCardInterface } from "../../assets/typescript/interfaces/filteringCardInterface";
+import PlusIcon from "../Icons/PlusIcon";
 
 export const ShownFilterContext = React.createContext<
   "region" | "price" | "area" | "bedrooms" | ""
@@ -134,15 +135,24 @@ const FilteringCard = ({
             {/* Navigation Buttons */}
             <div className="flex space-x-4">
               <Link to="/add-listing">
-                <FilledButtonCard>+ ლისტინგის დამატება</FilledButtonCard>
+                <FilledButtonCard>
+                  <div className="flex items-center gap-1">
+                    <PlusIcon />
+                    <span>ლისტინგის დამატება</span>
+                  </div>
+                </FilledButtonCard>
               </Link>
-              <div
+
+              <NotFilledButtonCard
                 onClick={() => {
                   setIsAddAgentShown(true);
                 }}
               >
-                <NotFilledButtonCard>+ აგენტის დამატება</NotFilledButtonCard>
-              </div>
+                <div className="flex items-center gap-1 add-agent-div">
+                  <PlusIcon />
+                  <span>აგენტის დამატება</span>
+                </div>
+              </NotFilledButtonCard>
             </div>
           </div>
           {/* Show Selected Filters */}

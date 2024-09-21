@@ -241,9 +241,9 @@ const AddAgent = () => {
             </div>
           </div>
           <div className="flex space-x-4 justify-end">
-            <div onClick={exitAddAgentDialog}>
-              <NotFilledButtonCard>გაუქმება</NotFilledButtonCard>
-            </div>
+            <NotFilledButtonCard onClick={exitAddAgentDialog}>
+              გაუქმება
+            </NotFilledButtonCard>
 
             <FilledButtonCard disabled={!isEverithingValidated}>
               დაამატე აგენტი

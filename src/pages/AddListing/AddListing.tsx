@@ -325,14 +325,13 @@ const AddListing = () => {
           />
         </div>
         <div className="flex gap-7 justify-end mt-2">
-          <div onClick={handleCancelOperation}>
-            <NotFilledButtonCard>გაუქმება</NotFilledButtonCard>
-          </div>
-          <div>
-            <FilledButtonCard disabled={!isEverithingValidated}>
-              დაამატე ლისტინგი
-            </FilledButtonCard>
-          </div>
+          <NotFilledButtonCard onClick={handleCancelOperation}>
+            გაუქმება
+          </NotFilledButtonCard>
+
+          <FilledButtonCard disabled={!isEverithingValidated}>
+            დაამატე ლისტინგი
+          </FilledButtonCard>
         </div>
       </form>
       {isListingCreating && <LoadingCard />}

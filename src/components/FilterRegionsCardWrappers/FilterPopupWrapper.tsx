@@ -64,8 +64,11 @@ const FilterPopupWrapper = ({
             <p className="text-deepBlue font-bold text-base">{title}</p>
           </div>
           {children}
-          <div className="self-end mt-6" onClick={saveSelectedFilters}>
-            <FilledButtonCard disabled={isButtonDisabled}>
+          <div className="self-end mt-6">
+            <FilledButtonCard
+              onClick={saveSelectedFilters}
+              disabled={isButtonDisabled}
+            >
               არჩევა
             </FilledButtonCard>
           </div>
