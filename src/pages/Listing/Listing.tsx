@@ -114,7 +114,6 @@ const Listing = () => {
       {!realEstateError && realEstates && !isRealEstateLoading && (
         <div className="relative">
           <SimilarRealEstatesCard
-            setSimilarRealEstates={setSimilarRealEstates}
             similarRealEstates={similarRealEstates}
             realEstatesError={realEstatesError}
             isRealEstatesLoading={isRealEstatesLoading}
