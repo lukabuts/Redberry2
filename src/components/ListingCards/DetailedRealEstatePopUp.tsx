@@ -39,27 +39,26 @@ const DetailedRealEstatePopUp = ({
         navigate("/");
       });
   }
+
+  function exitDialog() {
+    setShowPopUp(false);
+  }
   return (
-    <PopUpWrapper
-      exitDialog={() => {
-        setShowPopUp(false);
-      }}
-    >
-      <div className="flex gap-8 flex-col bg-white px-28 py-16 rounded-lg relative">
+    <PopUpWrapper exitDialog={exitDialog}>
+      <div
+        className="flex gap-8 flex-col bg-white px-28 py-16 rounded-lg relative"
+        onClick={(e) => e.stopPropagation()}
+      >
         <span className="text-center">გსურთ წაშალოთ ლისტინგი?</span>
         <div className="flex gap-4">
-          <NotFilledButtonCard
-            onClick={() => {
-              setShowPopUp(false);
-            }}
-          >
+          <NotFilledButtonCard onClick={exitDialog}>
             გაუქმება
           </NotFilledButtonCard>
           <FilledButtonCard onClick={deleteRealEstate}>
             დადასტურება
           </FilledButtonCard>
         </div>
-        <button className="absolute top-5 right-5 p-1">
+        <button className="absolute top-5 right-5 p-1" onClick={exitDialog}>
           <img loading="lazy" src={exitIcon} alt="Exit" className="w-5 h-5" />
         </button>
       </div>

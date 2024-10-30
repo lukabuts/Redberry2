@@ -48,7 +48,7 @@ const SimilarRealEstatesCard = ({
             ))}
           </Swiper>
           {/* Scroll Swiper Buttons */}
-          {swiperInstance && (
+          {swiperInstance && similarRealEstates.length > 4 && (
             <div className="absolute top-1/2 left-0 px-16 -translate-y-1/2 w-full flex justify-between mt-4">
               <button
                 onClick={() => swiperInstance.slidePrev()}
